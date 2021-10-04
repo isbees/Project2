@@ -14,7 +14,7 @@ public class Student{
 
     @Override
     public String toString() {
-        return person.toString();
+        return person.toString();  // will add more to this to string later. + ":" +
     }
 
     public void tuitionDue() {
