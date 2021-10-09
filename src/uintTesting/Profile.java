@@ -16,6 +16,17 @@ public class Profile {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Profile) {
+            Profile newProfile = (Profile) obj;
+            if (newProfile.name.equals(this.name) && newProfile.major.equals(this.major)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public String toString(){
         return name + ":" + major;
     }
