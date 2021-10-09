@@ -102,7 +102,7 @@ public class RosterTest {
         assertFalse(test6.add(resStudent));
     }
 
-    //Able remove from 2 or 1, but not from empty for tristate, resident, nonresident, and international
+    //Able remove from 2 or 1, but not from empty for tristate, resident, nonresident, and international, or student isn't in it
     @Test
     public void remove() {
         //Making usable international, nonresident, tristate, resident, and student.
@@ -162,5 +162,14 @@ public class RosterTest {
         assertFalse(test5.remove(nonResStudent));
         assertFalse(test5.remove(resStudent));
         assertFalse(test5.remove(testStudent));
+
+        //Test 6 - Can remove any type of student from the roster if they're in there - inter
+        Roster test6 = new Roster();
+        test6.add(interStudent);
+        assertTrue(test6.remove(interStudent));
+        assertFalse(test6.remove(triStudent));
+        assertFalse(test6.remove(nonResStudent));
+        assertFalse(test6.remove(resStudent));
+        assertFalse(test6.remove(testStudent));
     }
 }
