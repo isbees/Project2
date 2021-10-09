@@ -11,14 +11,15 @@ package uintTesting;
     //invalid state code
     //invalid input
 
-//Valid inputs: (major can be upper or lower case as with state)
+//Valid inputs: (major can be upper or lower case as with state) (commands gotta be uppercase)
+//(can have an empty line) (potential wrong major) (Check have all info on line)
 
     //Add: (check that credits >=3 and <=26 generally, then more specific)
         // international: cmd, name, major, credits, studyabroad
             //AI, name, major, credits, studyabroad (if study abroad true, credit hours gotta be <=12)
             //-> cont (gotta be full time >=12 if studyabroad is false)
         // tristate
-            //AT, name, major, credits, state (check if nyc, connecticut)
+            //AT, name, major, credits, state (check if nyc, connecticut. If not, wrong)
         // non resident
             //AN, name, major, credits
         // resident
@@ -36,8 +37,9 @@ package uintTesting;
     //Finaid
         //F, name, maj, $given (0<=x<=10k)
 
-    //Paying tuition
+    //Paying tuition (need date, need pay>0, valid date)
         //T, name, maj, $pay, date
+//Q ends the program
 public class TuitionManager {
     public static void run(){
 
