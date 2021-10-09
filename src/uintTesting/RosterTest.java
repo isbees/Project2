@@ -73,7 +73,7 @@ public class RosterTest {
         Resident test3R = new Resident(RProfile3,14);
         assertTrue(test2Roster.add(test3R));
 
-        //Test 5 Make a roster adding International, TriState, NonResident, and Resident
+        //Test 5 Make a roster adding International, TriState, NonResident, and Resident, showing roster can hold all
         Roster test5Roster = new Roster();
 
         //Add international student
@@ -95,6 +95,11 @@ public class RosterTest {
         Profile resProfile = new Profile("Hughe Landough", "IT", true);
         Resident resStudent = new Resident(resProfile, 14);
         assertTrue(test5Roster.add(resStudent));
+
+        //Test 6 - can't add same student twice
+        Roster test6 = new Roster();
+        assertTrue(test6.add(resStudent));
+        assertFalse(test6.add(resStudent));
     }
 
     //Able remove from 2 or 1, but not from empty for tristate, resident, nonresident, and international
