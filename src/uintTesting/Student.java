@@ -1,6 +1,7 @@
 package uintTesting;
 
 public class Student {
+    //Should keep track of the amount they owe and have paid as well as the last date -> i.e. the last T pay command's date
 
     private final int UNIVERSITY_FEE = 3268;    // University Fee
 
