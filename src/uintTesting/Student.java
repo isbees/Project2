@@ -49,17 +49,21 @@ public class Student {
      */
     @Override
     public String toString() {
-        return student.toString();  // will add more to this to string later. + ":" +
+        return student.toString() + ":" + creditHours;  // will add more to this to string later. + ":" +
     }
 
     /**
      * tuitionDue will calculate the university fee for a student based on full time status.
      */
     public void tuitionDue() {
-        tuitionFee = UNIVERSITY_FEE;
+  /*      tuitionFee = UNIVERSITY_FEE;
 
         if (!student.getFullTime())
             tuitionFee = (int) (UNIVERSITY_FEE * 0.8); // 80% of the university fee
+
+   */
+
+
     }
 
 } //end Student

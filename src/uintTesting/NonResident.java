@@ -23,13 +23,13 @@ public class NonResident extends Student {
 
     @Override
     public void tuitionDue() {
-        tuitionFee = UNIVERSITY_FEE;
-
         if (!student.getFullTime()) {
             tuitionFee = (int) (UNIVERSITY_FEE * 0.8); // 80% of the university fee
-            tuitionFee += 404 * creditHours;
+            tuitionFee += 966 * creditHours;
+        } else {
+            tuitionFee = UNIVERSITY_FEE;
+            tuitionFee += 29737;
         }
 
-        tuitionFee += 12536;
     }
 }
