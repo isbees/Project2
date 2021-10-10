@@ -100,7 +100,6 @@ public class RosterTest {
         Roster test6 = new Roster();
         assertTrue(test6.add(resStudent));
         assertFalse(test6.add(resStudent));
-    }
 
     //Able remove from 2 or 1, but not from empty for tristate, resident, nonresident, and international, or student isn't in it
     @Test
