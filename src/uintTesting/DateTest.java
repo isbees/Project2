@@ -33,7 +33,8 @@ public class DateTest {
         Date test7 = new Date("10/08/2021");
         assertTrue(test7.isValid());
 
-        //Test that february, et. 30 days, 28 wahtever from p1.
-
+        //Year = 2021, Month=Feb, Day=28, testing that 2021 is not leap year
+        Date test8 = new Date("2/28/2021");
+        assertFalse(test7.isValid());
     }
 }
