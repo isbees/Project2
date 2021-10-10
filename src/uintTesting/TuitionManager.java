@@ -7,7 +7,7 @@ import java.util.Scanner;
 //Comments: 159, 145, 184, gotta check also once I set study abroad that the credit amounts are okay.
 //Need a set payment, among other things. assumed we have finaid as a field.
 //Need class diagram.
-
+//
 
 public class TuitionManager {
     public static void main(String[] args){}
