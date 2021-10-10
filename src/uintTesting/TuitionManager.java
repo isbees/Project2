@@ -205,23 +205,20 @@ public class TuitionManager {
     //Checks validity of line then calls the functions
     public static void doCommand(String cmd, StringTokenizer st,Roster roster){
         if(cmd.equals("P")){
-            System.out.println("Going to print");
-            //    roster.print();
+                roster.print();
             return;
         }
         if(cmd.equals("PT")){
-            System.out.println("Going to print by tuition");
-            //    roster.printByTuition;
+               roster.printByTuition;
             return;
         }
         if(cmd.equals("PN")){
-            System.out.println("Going to print by name");
-            //roster.printByName();
+            roster.printByName();
             return;
         }
         if(cmd.equals("C")){
+             roster.calculateTuition();
             System.out.println("Calculation complete.");
-            // roster.calculateTuition();
             return;
         }
 
