@@ -59,6 +59,7 @@ public class Roster {
                 return false;
             }
         }
+
         // If the array isn't full search for an open spot
         if (null == roster[size - 1]) {
             //Go through it backwards until find the place to put it
