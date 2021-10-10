@@ -2,10 +2,9 @@ package uintTesting;
 
 public class NonResident extends Student {
 
-    private final int UNIVERSITY_FEE = 3268;    // University Fee
-
     private Profile student;
-    private int creditHours, tuitionFee;
+    private Date lastPaid;
+    private int creditHours, tuitionFee, financialAid, totalPaid;
 
     public NonResident(){
 
@@ -16,9 +15,15 @@ public class NonResident extends Student {
         this.creditHours = creditHours;
     }
 
+    /**
+     * will return a string with the variables and ends in resident
+     *
+     * @return String the formatted output
+     */
     @Override
     public String toString() {
-        return super.toString();
+        return student.toString() + ":" + creditHours + "credit hours:tuition due:" + tuitionFee
+                + ":total payment:" + totalPaid + ":last payment date: " + lastPaid.getDate() + ":resident";
     }
 
     @Override

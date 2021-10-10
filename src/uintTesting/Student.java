@@ -3,10 +3,11 @@ package uintTesting;
 public class Student {
     //Should keep track of the amount they owe and have paid as well as the last date -> i.e. the last T pay command's date
 
-    private final int UNIVERSITY_FEE = 3268;    // University Fee
+    public final int UNIVERSITY_FEE = 3268;    // University Fee for all students
 
     private Profile student;
-    private int creditHours, tuitionFee;
+    private Date lastPaid;
+    private int creditHours, tuitionFee, financialAid, totalPaid;
 
     /**
      * Empty constructor

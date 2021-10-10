@@ -4,10 +4,9 @@ import java.util.Locale;
 
 public class TriState extends NonResident {
 
-    private final int UNIVERSITY_FEE = 3268;    // University Fee
-
     private Profile student;
-    private int creditHours, tuitionFee;
+    private Date lastPaid;
+    private int creditHours, tuitionFee, financialAid, totalPaid;
     private String state;
 
     public TriState() {

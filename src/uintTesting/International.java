@@ -2,11 +2,10 @@ package uintTesting;
 
 public class International extends NonResident{
 
-    private final int UNIVERSITY_FEE = 3268;    // University Fee
-
     private Profile student;
-    private int creditHours, tuitionFee = 0;
-    private boolean studyAbroad, paid;
+    private Date lastPaid;
+    private int creditHours, tuitionFee, financialAid, totalPaid;
+    private boolean studyAbroad;
 
     public International() {
     }
