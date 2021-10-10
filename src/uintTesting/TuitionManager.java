@@ -117,133 +117,8 @@ public class TuitionManager {
             return true;
         }
     }
-    //Checks validity of line
-    public static void doCommand(String cmd, StringTokenizer st,Roster roster){
-        if(cmd.equals("P")){
-            System.out.println("Going to print");
-        //    roster.print();
-            return;
-        }
-        if(cmd.equals("PT")){
-            System.out.println("Going to print by tuition");
-        //    roster.printByTuition;
-            return;
-        }
-        if(cmd.equals("PN")){
-            System.out.println("Going to print by name");
-            //roster.printByName();
-            return;
-        }
-        if(cmd.equals("C")){
-            System.out.println("Going to tuition calculate.");
-         //   roster.calculateTuition();
-            return;
-        }
-
-        //Now need to quickly check that the rest of the line is valid.
-
-        //Check the name and major are strings:
-        String name = st.nextToken();
-        boolean isNameString = isString(name);
-        if(!isNameString){
-            System.out.println("You put a number for name. Invalid.");
-            return;
-        }
-        String major = st.nextToken();
-        boolean isMajorString = isString(major);
-        if(!isMajorString){
-            System.out.println("You put a number for name. Invalid.");
-            return;
-        }
-
-        //Check that it's a valid major
-        int validMajor = -1;
-        String[] validMajors ={"CS", "IT", "BA", "EE", "ME"};
-        for(int i = 0; i<validMajors.length; i++){
-            if(validMajors[i].equals(major.toUpperCase())){
-                validMajor=i;
-            }
-        }
-        if(validMajor==-1){
-            System.out.println("Invalid major name");
-            return;
-        }
-
-        //We have name, major. Since remove requires no more tokens, deal with it first.
-        if(cmd.equals("R")){
-            System.out.println("We're in remove.");
-            /*
-            //WE NEED CONSTRUCTOR WITHOUT CREDITS FOR REMOVE
-            Student newStudent = new Student(name,major);
-            roster.remove(newStudent);
-
-             */
-            return;
-        }
-
-        //Next comes S,F, AT, AR, AN. Gotta check the next token for them.
-        if(cmd.equals("S")){
-            System.out.println("We're in set study abroad");
-            //Check the last token is "true" or "false"
-            String studyAbroadTest = st.nextToken();
-            if(!(studyAbroadTest.equals("true")||studyAbroadTest.equals("false"))){
-                System.out.println("You need to give a boolean for studyabroad, not a string");
-                return;
-            }
-            boolean studyAbroad = Boolean.parseBoolean(studyAbroadTest);
-            /*
-            //WE NEED CONSTRUCTOR WITHOUT CREDITS FOR study abroad change
-            //ALSO GOTTA CHECK THEYRE INTERNATIONAL
-            Student newStudent = new Student(name, major, studyAbroad);
-            newStudent.setStudyAbroad(studyAbroad);
-            */
-
-            return;
-        }
-
-        if(cmd.equals("F")){
-            System.out.println("We're in give financial aid.");
-            String finAid = st.nextToken();
-            boolean validDouble = isNumber(finAid);
-            if(!validDouble){
-                System.out.println("Invalid financial aid amount - not a number");
-                return;
-            }
-            double financialAid = Double.parseDouble(finAid);
-            /*
-            //NEED CONSTRUCTOR FOR NAME,MAJOR
-            Student newStudent = new Student(name,major);
-            //ALSO GOTTA CHECK THEYRE RESIDENT
-            newStudent.setFinancialAid(financialAid);
-             */
-            return;
-        }
-        //Gotta check their credits for adding any type! So before I do that, I'll deal with my last command, T
-        if(cmd.equals("T")){
-            System.out.println("We're in pay tuition");
-            //Check it's a valid payment amount
-            String paymentAmountString = st.nextToken();
-            boolean isNumber = isNumber(paymentAmountString);
-            if(!isNumber){
-                System.out.println("Amount of payment isn't a number!");
-            }
-            double paymentAmount = Double.parseDouble(paymentAmountString);
-
-            //Check the date is valid
-            String dateOfPaymentString = st.nextToken();
-            Date dateOfPayment = new Date(dateOfPaymentString);
-            if(!dateOfPayment.isValid()){
-                System.out.println("Invalid payment date!");
-            }
-            /*
-            //Send the payment
-            Student newStudent = new Student(name, major);
-            roster.setPayment(newStudent, paymentAmount, dateOfPayment);
-             */
-            return;
-        }
-
-        //Now can go onto adds
+    public static void addStudentCommand(String cmd, String name, String major, StringTokenizer st, Roster roster){
+        //Now can go onto adds, finding credits
         String creditsString = st.nextToken();
         boolean isNumber = isNumber(creditsString);
         if (!isNumber) {
@@ -308,5 +183,135 @@ public class TuitionManager {
              */
             return;
         }
+    }
+
+    //Checks validity of line then calls the functions
+    public static void doCommand(String cmd, StringTokenizer st,Roster roster){
+        if(cmd.equals("P")){
+            System.out.println("Going to print");
+        //    roster.print();
+            return;
+        }
+        if(cmd.equals("PT")){
+            System.out.println("Going to print by tuition");
+        //    roster.printByTuition;
+            return;
+        }
+        if(cmd.equals("PN")){
+            System.out.println("Going to print by name");
+            //roster.printByName();
+            return;
+        }
+        if(cmd.equals("C")){
+            System.out.println("Going to tuition calculate.");
+         //   roster.calculateTuition();
+            return;
+        }
+
+        //Now need to quickly check that the rest of the line is valid.
+
+        //Check the name and major are strings:
+        String name = st.nextToken();
+        boolean isNameString = isString(name);
+        if(!isNameString){
+            System.out.println("You put a number for name. Invalid.");
+            return;
+        }
+        String major = st.nextToken();
+        boolean isMajorString = isString(major);
+        if(!isMajorString){
+            System.out.println("You put a number for name. Invalid.");
+            return;
+        }
+
+        //Check that it's a valid major
+        int validMajor = -1;
+        String[] validMajors ={"CS", "IT", "BA", "EE", "ME"};
+        for(int i = 0; i<validMajors.length; i++){
+            if(validMajors[i].equals(major.toUpperCase())){
+                validMajor=i;
+            }
+        }
+        if(validMajor==-1){
+            System.out.println("Invalid major name");
+            return;
+        }
+
+        //We have name, major. Since remove requires no more tokens, deal with it first.
+        if(cmd.equals("R")){
+            System.out.println("We're in remove.");
+            /*
+            //WE NEED CONSTRUCTOR WITHOUT CREDITS FOR REMOVE
+            Student newStudent = new Student(name,major);
+            roster.remove(newStudent);
+
+             */
+            return;
+        }
+
+        //Next comes S,F, AT, AR, AN. Gotta check the next token for them.
+        //To make it simpler, I put the AT, AR, and AN all with AI in addStudentCommand()
+        if(cmd.equals("S")){
+            System.out.println("We're in set study abroad");
+            //Check the last token is "true" or "false"
+            String studyAbroadTest = st.nextToken();
+            if(!(studyAbroadTest.equals("true")||studyAbroadTest.equals("false"))){
+                System.out.println("You need to give a boolean for studyabroad, not a string");
+                return;
+            }
+            boolean studyAbroad = Boolean.parseBoolean(studyAbroadTest);
+            /*
+            //WE NEED CONSTRUCTOR WITHOUT CREDITS FOR study abroad change
+            //ALSO GOTTA CHECK THEYRE INTERNATIONAL
+            Student newStudent = new Student(name, major, studyAbroad);
+            newStudent.setStudyAbroad(studyAbroad);
+            */
+
+            return;
+        }
+
+        if(cmd.equals("F")){
+            System.out.println("We're in give financial aid.");
+            String finAid = st.nextToken();
+            boolean validDouble = isNumber(finAid);
+            if(!validDouble){
+                System.out.println("Invalid financial aid amount - not a number");
+                return;
+            }
+            double financialAid = Double.parseDouble(finAid);
+            /*
+            //NEED CONSTRUCTOR FOR NAME,MAJOR
+            Student newStudent = new Student(name,major);
+            //ALSO GOTTA CHECK THEYRE RESIDENT
+            newStudent.setFinancialAid(financialAid);
+             */
+            return;
+        }
+
+        //Gotta check their credits for adding any type! So before I do that, I'll deal with my last command, T
+        if(cmd.equals("T")){
+            System.out.println("We're in pay tuition");
+            //Check it's a valid payment amount
+            String paymentAmountString = st.nextToken();
+            boolean isNumber = isNumber(paymentAmountString);
+            if(!isNumber){
+                System.out.println("Amount of payment isn't a number!");
+            }
+            double paymentAmount = Double.parseDouble(paymentAmountString);
+
+            //Check the date is valid
+            String dateOfPaymentString = st.nextToken();
+            Date dateOfPayment = new Date(dateOfPaymentString);
+            if(!dateOfPayment.isValid()){
+                System.out.println("Invalid payment date!");
+            }
+            /*
+            //Send the payment
+            Student newStudent = new Student(name, major);
+            roster.setPayment(newStudent, paymentAmount, dateOfPayment);
+             */
+            return;
+        }
+        addStudentCommand(cmd, name,major, st, roster);
     }
 }
