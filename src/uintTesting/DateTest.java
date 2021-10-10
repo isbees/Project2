@@ -32,8 +32,5 @@ public class DateTest {
         //Year = 2021, Month=Current month, Day<Current day valid
         Date test7 = new Date("10/08/2021");
         assertTrue(test7.isValid());
-
-        //Test that february, et. 30 days, 28 wahtever from p1.
-
     }
 }

@@ -3,16 +3,19 @@ package uintTesting;
 import java.text.NumberFormat;
 import java.util.StringTokenizer;
 import java.util.Scanner;
+
 //Comments: 159, 145, 184, gotta check also once I set study abroad that the credit amounts are okay.
-//Need a set payment, among other things.
+//Need a set payment, among other things. assumed we have finaid as a field.
+//Need class diagram
 
 
 public class TuitionManager {
+    public static void main(String[] args){}
     //Takes in the input and sends it off to check its validity,
     // then calls to do the command
     public static void run() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("TuitionManager Started");
+        System.out.println("TuitionManager Started.");
         Roster rost = new Roster();
         int success = 0;
         //Read in the inputs
@@ -45,7 +48,7 @@ public class TuitionManager {
     public static int checkCmdValidity(String letters, StringTokenizer st) {
         //If not capitalized, invalid
         if (!(letters.toUpperCase().equals(letters))) {
-            System.out.println("Command isn't fully capitalized.");
+            System.out.println("Invalid (command isn't fully capitalized).");
             return -1;
         }
         //If not in list of good commands, invalid.
@@ -53,7 +56,6 @@ public class TuitionManager {
         int cmdIndex = -1;
         for (int i = 0; i < validCommands.length; i++) {
             if (validCommands[i].equals(letters)) {
-                System.out.println("Invalid command");
                 cmdIndex = i;
             }
         }
@@ -64,32 +66,36 @@ public class TuitionManager {
         //Check that of C,P,PT,PN there's 1 total token.
         if(letters.equals("C")||letters.equals("P")||letters.equals("PT")||letters.equals("PN")){
             if(totalTokens!=1){
-                System.out.println("Invalid number of tokens for C, P, PT, or PN");
+                System.out.println("Invalid (incorrect number of tokens for C, P, PT, or PN).");
             }
         }
         //Check that for remove, there's 3 total tokens.
         if(letters.equals("R")){
             if(totalTokens!=3){
-                System.out.println("Invalid number of tokens for R");
+                System.out.println("Invalid (incorrect number of tokens for R).");
                 cmdIndex=-1;
             }
         }
         //Check that for S, F, AR, AN there's 4 total tokens .
         if(letters.equals("S")||letters.equals("F")||letters.equals("AR")||letters.equals("AN")){
             if(totalTokens!=4){
-                System.out.println("Invalid number of tokens for S, F, AR, AT, or AN");
+                System.out.println("Invalid (incorrect number of tokens for S, F, AR, AT, or AN).");
                 cmdIndex=-1;
             }
         }
         //Check that for AI, AT, T, there's 5 total tokens.
         if(letters.equals("AI")||letters.equals("AT")||letters.equals("T")){
             if(totalTokens!=5){
-                System.out.println("Invalid number of tokens for AI or T");
+                System.out.println("Invalid (incorrect number of tokens for AI, AT or T).");
                 cmdIndex=-1;
             }
         }
         return cmdIndex;
     }
+
+    //Adds a student to the roster by calling the addStudent method.
+    //An independent method in tuition manager that deals with output of that method
+    //and prints subsequent result
     public static void addStudent(Roster roster, Student newStudent){
         boolean added = roster.add(newStudent);
         if(!added){
@@ -99,6 +105,7 @@ public class TuitionManager {
             System.out.println("Added student.");
         }
     }
+
     public static boolean isNumber(String test){
         try{
             double testDouble = Double.parseDouble(test);
@@ -108,6 +115,7 @@ public class TuitionManager {
             return false;
         }
     }
+
     public static boolean isString(String test){
         try{
             int testInt = Integer.parseInt(test);
@@ -117,6 +125,8 @@ public class TuitionManager {
             return true;
         }
     }
+
+
     public static void addStudentCommand(String cmd, String name, String major, StringTokenizer st, Roster roster){
         //Now can go onto adds, finding credits
         String creditsString = st.nextToken();
@@ -126,7 +136,7 @@ public class TuitionManager {
             return;
         }
         int credits = Integer.parseInt(creditsString);
-        if (credits <= 3 || credits > 26) {
+        if (credits < 3 || credits > 26) {
             System.out.println("Invalid credit amount");
             return;
         }
@@ -144,14 +154,14 @@ public class TuitionManager {
                 System.out.println("We're adding resident.");
                 int financialAid = 0;
                 /*
+                //Assuming we have finaid as a field
                 Resident newStudent = new Resident(name,major,credits,0);
                 addStudent(roster, newStudent);
-
                  */
             }
         }
 
-        //Last comes AI, AT with 5 tokens. For both, we've already got credits.
+        //Last comes AI, AT with 5 tokens. For both, we need to use the next token.
         // Now just need state or studyabroad
         if(cmd.equals("AT")){
             System.out.println("We're adding tristate.");
@@ -184,6 +194,7 @@ public class TuitionManager {
             return;
         }
     }
+
 
     //Checks validity of line then calls the functions
     public static void doCommand(String cmd, StringTokenizer st,Roster roster){
@@ -279,6 +290,11 @@ public class TuitionManager {
                 return;
             }
             double financialAid = Double.parseDouble(finAid);
+            //Check it's 0<x<=10k
+            if(financialAid<=0||financialAid>10000){
+                System.out.println("FinAid exceeds 10k or is negative! No way you're getting that much money with a GPA like that bruh.");
+                return;
+            }
             /*
             //NEED CONSTRUCTOR FOR NAME,MAJOR
             Student newStudent = new Student(name,major);
@@ -288,7 +304,7 @@ public class TuitionManager {
             return;
         }
 
-        //Gotta check their credits for adding any type! So before I do that, I'll deal with my last command, T
+        //Gotta check their credits for Adding any type! So before I do that, I'll deal with my last command, T
         if(cmd.equals("T")){
             System.out.println("We're in pay tuition");
             //Check it's a valid payment amount
@@ -312,6 +328,7 @@ public class TuitionManager {
              */
             return;
         }
+        //We're adding a student as those are the only commands left -> Go deal with that
         addStudentCommand(cmd, name,major, st, roster);
     }
 }
