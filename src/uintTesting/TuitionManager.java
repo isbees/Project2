@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 //Comments: 159, 145, 184, gotta check also once I set study abroad that the credit amounts are okay.
 //Need a set payment, among other things. assumed we have finaid as a field.
-//Need class diagram
+//Need class diagram.
 
 
 public class TuitionManager {
@@ -15,9 +15,8 @@ public class TuitionManager {
     // then calls to do the command
     public static void run() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("TuitionManager Started.");
+        System.out.println("TuitionManager Started");
         Roster rost = new Roster();
-        int success = 0;
         //Read in the inputs
         while (sc.hasNextLine()) {
             String inputLine = sc.nextLine();
@@ -59,7 +58,10 @@ public class TuitionManager {
                 cmdIndex = i;
             }
         }
-
+        if(cmdIndex==-1){
+            System.out.println("Not a valid command!");
+            return -1;
+        }
         //Check that there's the right amount of tokens
         int totalTokens = st.countTokens()+1;
 
@@ -67,6 +69,7 @@ public class TuitionManager {
         if(letters.equals("C")||letters.equals("P")||letters.equals("PT")||letters.equals("PN")){
             if(totalTokens!=1){
                 System.out.println("Invalid (incorrect number of tokens for C, P, PT, or PN).");
+                cmdIndex=-1;
             }
         }
         //Check that for remove, there's 3 total tokens.
@@ -76,10 +79,10 @@ public class TuitionManager {
                 cmdIndex=-1;
             }
         }
-        //Check that for S, F, AR, AN there's 4 total tokens .
+        //Check that for S, F, AR, AN there's 4 total tokens.
         if(letters.equals("S")||letters.equals("F")||letters.equals("AR")||letters.equals("AN")){
             if(totalTokens!=4){
-                System.out.println("Invalid (incorrect number of tokens for S, F, AR, AT, or AN).");
+                System.out.println("Invalid (incorrect number of tokens for S, F, AR, or AN).");
                 cmdIndex=-1;
             }
         }
@@ -96,7 +99,7 @@ public class TuitionManager {
     //Adds a student to the roster by calling the addStudent method.
     //An independent method in tuition manager that deals with output of that method
     //and prints subsequent result
-    public static void addStudent(Roster roster, Student newStudent){
+    public static void addStudentWithPrinting(Roster roster, Student newStudent){
         boolean added = roster.add(newStudent);
         if(!added){
             System.out.println("Didn't add.");
@@ -136,7 +139,7 @@ public class TuitionManager {
             return;
         }
         int credits = Integer.parseInt(creditsString);
-        if (credits < 3 || credits > 26) {
+        if (credits < 3 || credits > 24) {
             System.out.println("Invalid credit amount");
             return;
         }
@@ -145,7 +148,7 @@ public class TuitionManager {
                 System.out.println("We're adding non resident.");
                 /*
                 NonResident newStudent = new NonResident(name,major,credits);
-                addStudent(roster, newStudent)
+                addStudentWithPrinting(roster, newStudent)
 
                  */
                 return;
@@ -154,9 +157,8 @@ public class TuitionManager {
                 System.out.println("We're adding resident.");
                 int financialAid = 0;
                 /*
-                //Assuming we have finaid as a field
-                Resident newStudent = new Resident(name,major,credits,0);
-                addStudent(roster, newStudent);
+                Resident newStudent = new Resident(name,major,credits);
+                addStudentWithPrinting(roster, newStudent);
                  */
             }
         }
@@ -173,12 +175,16 @@ public class TuitionManager {
             }
             /*
             TriState newStudent = new TriState(name, major, credits, state);
-            addStudent(roster, newStudent);
+            addStudentWithPrinting(roster, newStudent);
 
              */
             return;
         }
         if(cmd.equals("AI")){
+            if(credits<12){
+                System.out.println("Invalid. Trying to make parttime international.");
+                return;
+            }
             System.out.println("We're adding international.");
             String studyAbroadTest = st.nextToken();
             if(!(studyAbroadTest.equals("true")||studyAbroadTest.equals("false"))){
@@ -187,9 +193,9 @@ public class TuitionManager {
             }
             boolean studyAbroad = Boolean.parseBoolean(studyAbroadTest);
             /*
-            International newStudent = new International(name, major, credits, studyAbroad);
-            addStudent(roster, newStudent);
-
+            Profile intStudentProfile = new Profile(name, major);
+            International newStudent = new International(intStudentProfile, credits, studyAbroad);
+            addStudentWithPrinting(roster, newStudent);
              */
             return;
         }
@@ -200,12 +206,12 @@ public class TuitionManager {
     public static void doCommand(String cmd, StringTokenizer st,Roster roster){
         if(cmd.equals("P")){
             System.out.println("Going to print");
-        //    roster.print();
+            //    roster.print();
             return;
         }
         if(cmd.equals("PT")){
             System.out.println("Going to print by tuition");
-        //    roster.printByTuition;
+            //    roster.printByTuition;
             return;
         }
         if(cmd.equals("PN")){
@@ -214,8 +220,8 @@ public class TuitionManager {
             return;
         }
         if(cmd.equals("C")){
-            System.out.println("Going to tuition calculate.");
-         //   roster.calculateTuition();
+            System.out.println("Calculation complete.");
+            // roster.calculateTuition();
             return;
         }
 
@@ -252,10 +258,14 @@ public class TuitionManager {
         if(cmd.equals("R")){
             System.out.println("We're in remove.");
             /*
-            //WE NEED CONSTRUCTOR WITHOUT CREDITS FOR REMOVE
-            Student newStudent = new Student(name,major);
-            roster.remove(newStudent);
-
+            Student newStudent = new Student(name, major, 0);
+            boolean removed = roster.remove(newStudent);
+            if(removed){
+                System.out.println("Student removed from the roster student.");
+            }
+            else {
+                System.out.println("Student is not in the roster.");
+            }
              */
             return;
         }
@@ -272,10 +282,15 @@ public class TuitionManager {
             }
             boolean studyAbroad = Boolean.parseBoolean(studyAbroadTest);
             /*
-            //WE NEED CONSTRUCTOR WITHOUT CREDITS FOR study abroad change
-            //ALSO GOTTA CHECK THEYRE INTERNATIONAL
-            Student newStudent = new Student(name, major, studyAbroad);
-            newStudent.setStudyAbroad(studyAbroad);
+            Profile intProfile = new Profile(name, major);
+            International newStudent = new International(intProfile, 0, false);
+            boolean updated = Roster.setStudyAbroad(newStudent,studyAbroad);
+            if(updated){
+                System.out.println("Tuition updated.");
+            }
+            else{
+                System.out.println("Couldn't find international student.");
+            }
             */
 
             return;
@@ -297,21 +312,48 @@ public class TuitionManager {
             }
             /*
             //NEED CONSTRUCTOR FOR NAME,MAJOR
-            Student newStudent = new Student(name,major);
-            //ALSO GOTTA CHECK THEYRE RESIDENT
-            newStudent.setFinancialAid(financialAid);
+
+            Student newStudent = new Student(name, major, 0);
+
+            //Check if student is in roster
+            Student s = roster.findStudent(newStudent);
+            if(null==s){
+                System.out.println("Student not in roster.");
+                return;
+            }
+
+            //Check if student is Resident
+            boolean isResident = (s instance of Resident);
+            if(!isResident){
+                System.out.println("Not a resident.");
+                return;
+            }
+
+            //Check if student is fulltime
+            boolean fulltime = s.getCredits()>=12;
+            if(!fullTime){
+                System.out.println("Parttime student doesn't qualify for the award.");
+                return;
+            }
+            boolean addedAid = s.setFinancialAid(financialAid);
+            if(addedAid){
+                System.out.println("Tuition updated.");
+            }
+            else{
+                "Already given.";
+            }
              */
             return;
         }
 
         //Gotta check their credits for Adding any type! So before I do that, I'll deal with my last command, T
         if(cmd.equals("T")){
-            System.out.println("We're in pay tuition");
             //Check it's a valid payment amount
             String paymentAmountString = st.nextToken();
             boolean isNumber = isNumber(paymentAmountString);
             if(!isNumber){
                 System.out.println("Amount of payment isn't a number!");
+                return;
             }
             double paymentAmount = Double.parseDouble(paymentAmountString);
 
@@ -320,11 +362,27 @@ public class TuitionManager {
             Date dateOfPayment = new Date(dateOfPaymentString);
             if(!dateOfPayment.isValid()){
                 System.out.println("Invalid payment date!");
+                return;
             }
             /*
+            System.out.println("We're in pay tuition");
+
             //Send the payment
-            Student newStudent = new Student(name, major);
-            roster.setPayment(newStudent, paymentAmount, dateOfPayment);
+            //Check that the student is there
+            Student newStudent = new Student(name, major,0);
+            Student s = findStudent(newStudent);
+            if(null==s){
+                System.out.println("Student not in roster.");
+                return;
+            }
+            boolean paidDone = roster.pay(s, paymentAmount, dateOfPayment);
+            //Check if payment <= tuition due
+            if(paidDone){
+                "Added a payment.";
+            }
+            else{
+                "Invalid, greater than tuition due.";
+            }
              */
             return;
         }
