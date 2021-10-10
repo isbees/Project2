@@ -4,7 +4,8 @@ public class Resident extends Student {
 
     private Profile student;
     private Date lastPaid;
-    private int creditHours, tuitionFee, financialAid, totalPaid;
+    private int creditHours;
+    private double tuitionFee, financialAid, totalPaid;
 
     public Resident() {
     }
@@ -24,8 +25,8 @@ public class Resident extends Student {
      */
     @Override
     public String toString() {
-        return student.toString() + ":" + creditHours + "credit hours:tuition due:" + tuitionFee
-                                + ":total payment:" + totalPaid + ":last payment date: " + lastPaid.getDate() + ":resident";
+        return String.format("%s:%d credit hours:tuition due:%1.2f:total payment:%1.2f:last payment date: %s:resident"
+                             ,student.toString(),creditHours,tuitionFee,totalPaid,lastPaid.getDate());
     }
 
     @Override
@@ -41,29 +42,44 @@ public class Resident extends Student {
 
     }
 
+
+    //note Isaac. You can over pay. don't over think this you dumbass
+
     /**
-     * will make sure that a payment and financial aid used the
+     * will make a payment so long as the payment isn't greater than the tuition.
      *
      * @param payment the amount to be paid
-     * @return
+     * @return false if the totalPaid is equal to tutionFee or if the payment size is too large.
      */
-    public boolean pay(int payment){
+    @Override
+    public boolean pay(int payment, Date datePaid) {
+
+        if (tuitionFee - payment < 0) {   // Check that the payment is less than the tuition fee
+            return false;
+        }
+
+        totalPaid += payment;
+        lastPaid = datePaid;
 
         return true;
-    }
-    //save the date
-    //upadate the payment date
-    //
 
-    public void setFinancialAid(int financialAid){
-        if((this.financialAid + financialAid) >= 10000){
-            this.financialAid = 10000;
-        } else {
-            this.financialAid += financialAid;
+    }
+
+    /**
+     * sets the finanical aid of the student.
+     *
+     * @param financialAid the amount given
+     * @return false if the financial aid was already given
+     */
+    @Override
+    public boolean setFinancialAid(int financialAid) {
+
+        if (this.financialAid > 0) {
+            return false;
         }
-        //check the amount that financialAid takes away from tuition. if negative balance out the equations.
-        if(tuitionFee - financialAid < 0) {
-            //
-        }
+
+        this.financialAid = financialAid;
+
+        return true;
     }
 }

@@ -7,7 +7,8 @@ public class Student {
 
     private Profile student;
     private Date lastPaid;
-    private int creditHours, tuitionFee, financialAid, totalPaid;
+    private int creditHours;
+    private double tuitionFee, financialAid, totalPaid;
 
     /**
      * Empty constructor
@@ -19,8 +20,8 @@ public class Student {
     /**
      * Constructor creates a profile after finding the fullTime status, sets all the private variables, and calculates tuitionDue
      *
-     * @param name of the student
-     * @param major the student is studying
+     * @param name        of the student
+     * @param major       the student is studying
      * @param creditHours that the student is taking
      */
     public Student(String name, String major, int creditHours) {
@@ -34,7 +35,7 @@ public class Student {
     /**
      * Constructor passes the inputs to the private variables and calculates the tuition due
      *
-     * @param student profile with name, major and full time status
+     * @param student     profile with name, major and full time status
      * @param creditHours that the student is taking
      */
     public Student(Profile student, int creditHours) {
@@ -54,17 +55,30 @@ public class Student {
     }
 
     /**
-     * tuitionDue will calculate the university fee for a student based on full time status.
+     * does nothing here since the subclasses determine the tuition amount.
      */
     public void tuitionDue() {
-  /*      tuitionFee = UNIVERSITY_FEE;
+    }
 
-        if (!student.getFullTime())
-            tuitionFee = (int) (UNIVERSITY_FEE * 0.8); // 80% of the university fee
+    /**
+     * returns false since the subclasses determine if a payment is possible
+     *
+     * @param payment the amount to be paid
+     * @return false
+     */
+    public boolean pay(int payment, Date datePaid) {
+        return false;
 
-   */
+    }
 
-
+    /**
+     * returns false since the subclasses determine the financial
+     *
+     * @param financialAid the amount given
+     * @return false
+     */
+    public boolean setFinancialAid(int financialAid) {
+        return false;
     }
 
 } //end Student
