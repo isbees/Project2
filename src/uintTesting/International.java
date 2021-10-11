@@ -21,17 +21,6 @@ public class International extends NonResident {
         totalPaid = 0;
     }
 
-    public boolean setStudyAbroad(boolean abroadState){
-        if(creditHours <= 12){
-            studyAbroad = abroadState;
-            tuitionDue();
-            return true;
-        }
-
-        return false;
-    }
-    // change the tuitionFee again
-
     /**
      * will return a string with the variables and ends in non resident(tri-state):<state>
      *
@@ -64,6 +53,9 @@ public class International extends NonResident {
                 tuitionFee = UNIVERSITY_FEE;
                 tuitionFee += 29737;
                 tuitionFee += 2650;
+                if(creditHours > 16){
+                    tuitionFee += (creditHours - 16) * 966;
+                }
             }
         }
     }
@@ -96,5 +88,15 @@ public class International extends NonResident {
     @Override
     public boolean setFinancialAid(double financialAid) {
         return super.setFinancialAid(financialAid);
+    }
+
+    public boolean setStudyAbroad(boolean abroadState){
+        if(creditHours <= 12){
+            studyAbroad = abroadState;
+            tuitionDue();
+            return true;
+        }
+
+        return false;
     }
 }

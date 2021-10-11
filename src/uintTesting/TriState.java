@@ -43,6 +43,9 @@ public class TriState extends NonResident {
         } else {
             tuitionFee = UNIVERSITY_FEE;
             tuitionFee += 29737;
+            if(creditHours > 16){
+                tuitionFee += (creditHours - 16) * 966;
+            }
         }
         if (state.equals("NY")) {
             tuitionFee -= 4000;

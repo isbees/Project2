@@ -49,6 +49,9 @@ public class Resident extends Student {
         } else {
             tuitionFee = UNIVERSITY_FEE;
             tuitionFee += 12536;
+            if(creditHours > 16){
+                tuitionFee += (creditHours - 16) * 404;
+            }
         }
 
 

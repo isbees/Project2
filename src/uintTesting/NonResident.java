@@ -50,6 +50,9 @@ public class NonResident extends Student {
         } else {
             tuitionFee = UNIVERSITY_FEE;
             tuitionFee += 29737;
+            if(creditHours > 16){
+                tuitionFee += (creditHours - 16) * 966;
+            }
         }
     }
 
