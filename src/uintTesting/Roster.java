@@ -111,8 +111,14 @@ public class Roster {
     }
 
 
-    public Student findStudent(Student s) {
-        return roster[find(s)];
+    public Student findStudent(Student newStudent) {
+        int indexOfStudent = find(newStudent);
+        if(indexOfStudent==-1){
+            return null;
+        }
+        else {
+            return roster[indexOfStudent];
+        }
     }
 
     /**
@@ -149,10 +155,10 @@ public class Roster {
         if (i == -1) {
             return false;
         }
-        if (roster[i] instanceof International) { // should return true if the student has more than 12 credits
+        //If found, check that the student is international
+        if (roster[i] instanceof International) { // should return true
             return ((International) roster[i]).setStudyAbroad(abroadState);
         }
-
         return false;
     }
 
