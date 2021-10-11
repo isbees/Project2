@@ -57,7 +57,6 @@ public class TuitionManager {
         sc.close();
     }
 
-
     //Checks validity of command
     /**
      * checkCmdValidity takes in the command and rest of the string in the tokenizer, checks that the
@@ -119,19 +118,26 @@ public class TuitionManager {
                 cmdIndex = INVALID_COMMAND;
             }
         }
-        //Check that for AI, AT, T, there's 5 total tokens.
-        if (letters.equals("AI") || letters.equals("AT") || letters.equals("T")) {
+        //Check that for AI, AT 5 tokens
+        if (letters.equals("AI") || letters.equals("AT")) {
             if (totalTokens != 5) {
-                if(totalTokens==3){
-                    if(letters.equals("AI") || letters.equals("AT")) {
-                        System.out.println("Credit hours missing.");
-                    } else {
-                        System.out.println("Payment amount missing.");
-                    }
+                if(totalTokens==3) {
+                    System.out.println("Credit hours missing.");
                     return INVALID_COMMAND;
                 }
-                System.out.println("Missing data in command line.");
-                cmdIndex = INVALID_COMMAND;
+                else {
+                    System.out.println("Missing data in command line.");
+                    cmdIndex = INVALID_COMMAND;
+                }
+            }
+        }
+        //Check for T that there's 5 total tokens, and valid amounts
+        if(letters.equals("T")){
+            if (totalTokens != 5) {
+                if(totalTokens==3){
+                    System.out.println("Payment amount missing.");
+                    cmdIndex=INVALID_COMMAND;
+                }
             }
         }
         return cmdIndex;
@@ -437,6 +443,12 @@ public class TuitionManager {
             double paymentAmount = Double.parseDouble(paymentAmountString);
             if(paymentAmount<=0){
                 System.out.println("Invalid amount.");
+                return;
+            }
+            //If we don't have a date, say missing data.
+            if(!st.hasMoreTokens()){
+                System.out.println("Missing data in command line.");
+                return;
             }
             //Check the date is valid
             String dateOfPaymentString = st.nextToken();
@@ -459,7 +471,7 @@ public class TuitionManager {
             if (paidDone) {
                 System.out.println("Payment applied.");
             } else {
-                System.out.println("Invalid amount.");
+                System.out.println("Amount is greater than amount due.");
             }
 
             return;
