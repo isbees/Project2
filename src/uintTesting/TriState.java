@@ -19,6 +19,7 @@ public class TriState extends NonResident {
         lastPaid = new Date("00/00/00");
         this.student =  new Profile(name,major,fullTime);
         this.creditHours = creditHours;
+        this.state = state;
         tuitionFee = 0;
         financialAid = 0;
         totalPaid = 0;
@@ -36,9 +37,26 @@ public class TriState extends NonResident {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof TriState) {
+            TriState newStudent = (TriState) obj;
+            return (newStudent.getProfileP()).equals(this.getProfileP());
+        }
+        return false;
+    }
+
+    public String getProfile() {
+        return student.toString();
+    }
+
+    public Profile getProfileP() {
+        return student;
+    }
+
+    @Override
     public void tuitionDue() {
         if (!student.getFullTime()) {
-            tuitionFee = (int) (UNIVERSITY_FEE * 0.8); // 80% of the university fee
+            tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
             tuitionFee += 966 * creditHours;
         } else {
             tuitionFee = UNIVERSITY_FEE;

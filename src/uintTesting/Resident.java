@@ -42,9 +42,26 @@ public class Resident extends Student {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Resident) {
+            Resident newStudent = (Resident) obj;
+            return (newStudent.getProfileP()).equals(this.getProfileP());
+        }
+        return false;
+    }
+
+    public String getProfile() {
+        return student.toString();
+    }
+
+    public Profile getProfileP() {
+        return student;
+    }
+
+    @Override
     public void tuitionDue() {
         if (!student.getFullTime()) {
-            tuitionFee = (int) (UNIVERSITY_FEE * 0.8); // 80% of the university fee
+            tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
             tuitionFee += 404 * creditHours;
         } else {
             tuitionFee = UNIVERSITY_FEE;

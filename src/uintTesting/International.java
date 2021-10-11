@@ -37,17 +37,34 @@ public class International extends NonResident {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof International) {
+            International newStudent = (International) obj;
+            return (newStudent.getProfileP()).equals(this.getProfileP());
+        }
+        return false;
+    }
+
+    public String getProfile() {
+        return student.toString();
+    }
+
+    public Profile getProfileP() {
+        return student;
+    }
+
+    @Override
     public void tuitionDue() {
         if (studyAbroad) {
             if (!student.getFullTime()) {
-                tuitionFee = (int) (UNIVERSITY_FEE * 0.8); // 80% of the university fee
+                tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
             } else {
                 tuitionFee = UNIVERSITY_FEE;
                 tuitionFee += 2650;
             }
         } else {
             if (!student.getFullTime()) {
-                tuitionFee = (int) (UNIVERSITY_FEE * 0.8); // 80% of the university fee
+                tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
                 tuitionFee += 966 * creditHours;
             } else {
                 tuitionFee = UNIVERSITY_FEE;
@@ -98,5 +115,9 @@ public class International extends NonResident {
         }
 
         return false;
+    }
+
+    public double getTuitionFee(){
+        return tuitionFee;
     }
 }

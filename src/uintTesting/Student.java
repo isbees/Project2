@@ -54,8 +54,23 @@ public class Student {
         return student.toString() + ":" + creditHours;  // will add more to this to string later. + ":" +
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Student) {
+            Student newStudent = (Student) obj;
+            System.out.println("profile: " + newStudent.getProfile());
+            return (newStudent.getProfileP()).equals(this.getProfileP());
+        }
+        return false;
+    }
+
     public String getProfile() {
+        //System.out.println("name " + student.getName());
         return student.toString();
+    }
+
+    public Profile getProfileP() {
+        return student;
     }
 
     /**

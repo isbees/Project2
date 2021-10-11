@@ -14,7 +14,10 @@ public class Roster {
     private int find(Student student) {
         int index;
         for (index = 0; index < size; index++) {
-            if (student.getProfile().equals(roster[index].getProfile())) {
+            if(null == roster[index]){
+                break;
+            }
+            if (student.getProfileP().equals(roster[index].getProfileP())) {
                 return index;
             }
         }
@@ -55,7 +58,8 @@ public class Roster {
             if (a == null) {
                 break;
             }
-            if (a.equals(student)) {
+
+            if (a.getProfileP().equals(student.getProfileP())) {
                 return false;
             }
         }
@@ -157,7 +161,7 @@ public class Roster {
      */
     public void print() {
         if (roster == null) {
-            System.out.println("The collection is empty.");
+            System.out.println("Student roster is empty!");
             return;
         }
 
@@ -180,7 +184,7 @@ public class Roster {
      */
     public void printByName() {
         if (roster == null) {
-            System.out.println("The collection is empty.");
+            System.out.println("Student roster is empty!");
             return;
         }
         System.out.println("* list of students ordered by name **");
@@ -217,7 +221,7 @@ public class Roster {
      */
     public void printByTuition() {
         if (roster == null) {
-            System.out.println("The collection is empty.");
+            System.out.println("Student roster is empty!");
             return;
         }
         System.out.println("* list of students made payments ordered by payment date **");

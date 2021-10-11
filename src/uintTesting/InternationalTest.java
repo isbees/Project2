@@ -11,7 +11,7 @@ public class InternationalTest {
         Major major1 = Major.valueOf("CS");
         Profile student1 = new Profile("John Smith", major1);
         International test1 = new International(student1,9,true);
-        assertTrue(test1.getTuitionFee() == (int)(3268*0.8));
+        assertTrue(test1.getTuitionFee() == (3268*0.8));
 
         //Test 2 - if study abroad full time
         Major major2 = Major.valueOf("CS");
@@ -23,13 +23,13 @@ public class InternationalTest {
         Major major3 = Major.valueOf("CS");
         Profile student3 = new Profile("John Smith", major3);
         International test3 = new International(student3,9,false);
-        assertTrue(test3.getTuitionFee() == ((966*9)+(int)(0.8*3268)));
+        assertTrue(test3.getTuitionFee() == ((966*9)+(0.8*3268)));
 
         //Test 4 - if not study abroad full time + no extra credits
         Major major4 = Major.valueOf("CS");
         Profile student4 = new Profile("John Smith", major4);
         International test4 = new International(student4,9,false);
-        assertTrue(test4.getTuitionFee() == (3268+29737+2650;
+        assertTrue(test4.getTuitionFee() == (3268+29737+2650));
 
         //Test 5 - if not study abroad full time + extra credits
         Major major5 = Major.valueOf("CS");

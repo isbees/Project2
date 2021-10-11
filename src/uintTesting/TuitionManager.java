@@ -201,13 +201,17 @@ public class TuitionManager {
         String creditsString = st.nextToken();
         boolean isNumber = isNumber(creditsString);
         if (!isNumber) {
-            System.out.println("Number of credits isn't a number!");
+            System.out.println("Invalid credit hours.");
             return;
         }
         int credits = Integer.parseInt(creditsString);
         if (credits < 3 || credits > 24) {
             if(credits < 3){
-                System.out.println("Minimum credit hours is 3.");
+                if(credits < 0){
+                    System.out.println("Credit hours cannot be negative.");
+                } else {
+                    System.out.println("Minimum credit hours is 3.");
+                }
             }
             else{
                 System.out.println("Credit hours exceed the maximum 24.");
@@ -216,15 +220,13 @@ public class TuitionManager {
         }
         if (cmd.equals("AN") || cmd.equals("AR")) {
             if (cmd.equals("AN")) {
-                System.out.println("We're adding non resident.");
-
                 NonResident newStudent = new NonResident(name, major, credits);
                 addStudentWithPrinting(roster, newStudent);
 
 
                 return;
             } else if (cmd.equals("AR")) {
-                System.out.println("We're adding resident.");
+
                 int financialAid = 0;
 
                 Resident newStudent = new Resident(name, major, credits);
@@ -236,11 +238,11 @@ public class TuitionManager {
         //Last comes AI, AT with 5 tokens. For both, we need to use the next token.
         // Now just need state or studyabroad
         if (cmd.equals("AT")) {
-            System.out.println("We're adding tristate.");
+
             String state = st.nextToken();
             state = state.toUpperCase();
             if (!(state.equals("NY") || state.equals("CT"))) {
-                System.out.println("Trying to add tristate but not from NY or CT. Invalid!");
+                System.out.println("Not part of the tri-state area.");
                 return;
             }
 
@@ -255,7 +257,7 @@ public class TuitionManager {
                 System.out.println("International students must enroll at least 12 credits.");
                 return;
             }
-            System.out.println("We're adding international.");
+
             String studyAbroadTest = st.nextToken();
             if (!(studyAbroadTest.equals("true") || studyAbroadTest.equals("false"))) {
                 System.out.println("You need to give a boolean for studyabroad, not a string");
@@ -339,12 +341,10 @@ public class TuitionManager {
 
         //We have name, major. Since remove requires no more tokens, deal with it first.
         if (cmd.equals("R")) {
-            System.out.println("We're in remove.");
-
             Student newStudent = new Student(name, majorM, 0);
             boolean removed = roster.remove(newStudent);
             if (removed) {
-                System.out.println("Student removed from the roster student.");
+                System.out.println("Student removed from the roster.");
             } else {
                 System.out.println("Student is not in the roster.");
             }
@@ -355,7 +355,6 @@ public class TuitionManager {
         //Next comes S,F, AT, AR, AN. Gotta check the next token for them.
         //To make it simpler, I put the AT, AR, and AN all with AI in addStudentCommand()
         if (cmd.equals("S")) {
-            System.out.println("We're in set study abroad");
             //Check the last token is "true" or "false"
             String studyAbroadTest = st.nextToken();
             if (!(studyAbroadTest.equals("true") || studyAbroadTest.equals("false"))) {
@@ -376,7 +375,6 @@ public class TuitionManager {
         }
 
         if (cmd.equals("F")) {
-            System.out.println("We're in give financial aid.");
             String finAid = st.nextToken();
             boolean validDouble = isNumber(finAid);
             if (!validDouble) {
@@ -442,8 +440,6 @@ public class TuitionManager {
                 System.out.println("Payment date invalid.");
                 return;
             }
-
-            System.out.println("We're in pay tuition");
 
             //Send the payment
             //Check that the student is in the roster

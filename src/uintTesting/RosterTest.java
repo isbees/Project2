@@ -8,9 +8,14 @@ import static org.junit.Assert.*;
  */
 public class RosterTest {
 
+    public static void main(String[] arg){
+        add();
+        remove();
+    }
+
     //Able to add to empty, add to 1, add to 2 for tristate, resident, nonresident, and international
     @org.junit.Test
-    public void add() {
+    public static void add() {
         Major itMajor = Major.valueOf("IT");
         Major csMajor = Major.valueOf("CS");
         Major eeMajor = Major.valueOf("EE");
@@ -109,7 +114,7 @@ public class RosterTest {
 
     //Able remove from 2 or 1, but not from empty for tristate, resident, nonresident, and international, or student isn't in it
     @org.junit.Test
-    public void remove() {
+    public static void remove() {
         Major itMajor = Major.valueOf("IT");
         Major csMajor = Major.valueOf("CS");
         Major eeMajor = Major.valueOf("EE");

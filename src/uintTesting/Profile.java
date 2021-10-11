@@ -6,15 +6,15 @@ public class Profile {
     private String name;
     private Major major;
 
-    public Profile(){
+    public Profile() {
     }
 
-    public Profile(String name, Major major){
+    public Profile(String name, Major major) {
         this.name = name;
         this.major = major;
     }
 
-    public Profile(String name, Major major, boolean fullTime){
+    public Profile(String name, Major major, boolean fullTime) {
         this.fullTime = fullTime;
         this.name = name;
         this.major = major;
@@ -30,12 +30,20 @@ public class Profile {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return name + ":" + major;
     }
 
-    public boolean getFullTime(){
+    public boolean getFullTime() {
         return fullTime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Major getMajor() {
+        return major;
     }
 
 }
