@@ -10,8 +10,8 @@ import java.util.Scanner;
  */
 
 public class TuitionManager {
-    public static final int QUIT_COMMAND = 9;
-    public static final int INVALID_COMMAND = -1;
+    private static final int QUIT_COMMAND = 9;
+    private static final int INVALID_COMMAND = -1;
 
     /**
      * Main method
@@ -68,7 +68,7 @@ public class TuitionManager {
      * @param st      representing the StringTokenizer on the second token already having read in the cmd
      * @return cmdIndex returns the index of command from the array of valid commands, or -1 if invalid line or command
      */
-    public static int checkCmdValidity(String letters, StringTokenizer st) {
+    private static int checkCmdValidity(String letters, StringTokenizer st) {
         //If not capitalized, invalid
         if (!(letters.toUpperCase().equals(letters))) {
             System.out.println("Command " + "'" + letters + "'" + "not supported!");
@@ -152,7 +152,7 @@ public class TuitionManager {
      * @param roster     that is the roster we're dealing with
      * @param newStudent which is the student we're trying to add
      */
-    public static void addStudentWithPrinting(Roster roster, Student newStudent) {
+    private static void addStudentWithPrinting(Roster roster, Student newStudent) {
         boolean added = roster.add(newStudent);
         if (!added) {
             System.out.println("Student already in the roster.");
@@ -168,7 +168,7 @@ public class TuitionManager {
      * @param test string that we're checking if it's a number or not
      * @return boolean that's true if a number, false if not
      */
-    public static boolean isNumber(String test) {
+    private static boolean isNumber(String test) {
         try {
             double testDouble = Double.parseDouble(test);
             return true;
@@ -184,7 +184,7 @@ public class TuitionManager {
      * @param test string that we're checking if it's a string or not
      * @return boolean that's true if a string, false if not
      */
-    public static boolean isString(String test) {
+    private static boolean isString(String test) {
         try {
             int testInt = Integer.parseInt(test);
             return false;
@@ -206,7 +206,7 @@ public class TuitionManager {
      * @param st     the StringTokenizer holding the rest of the information of the student
      * @param roster the roster we're adding the student to
      */
-    public static void addStudentCommandPartOne(String cmd, String name, Major major, StringTokenizer st, Roster roster) {
+    private static void addStudentCommandPartOne(String cmd, String name, Major major, StringTokenizer st, Roster roster) {
         //Now can go onto adds, finding credits
 
         String creditsString = st.nextToken();
@@ -284,7 +284,7 @@ public class TuitionManager {
      * @param st     the stringtokenizer holding the rest of the information of the student
      * @param roster the roster we're adding the student to
      */
-    public static void doCommand(String cmd, StringTokenizer st, Roster roster) {
+    private static void doCommand(String cmd, StringTokenizer st, Roster roster) {
         if (cmd.equals("P")) {
             roster.print();
             return;
