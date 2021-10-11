@@ -12,6 +12,7 @@ public class NonResident extends Student {
     }
 
     public NonResident(Profile student, int creditHours) {
+        lastPaid = new Date("00/00/00");
         this.student = student;
         this.creditHours = creditHours;
         tuitionFee = 0;
@@ -22,6 +23,7 @@ public class NonResident extends Student {
     public NonResident(String name, Major major, int creditHours) {
         boolean fullTime = (creditHours - 12) >= 0;
 
+        lastPaid = new Date("00/00/00");
         this.student = new Profile(name,major,fullTime);
         this.creditHours = creditHours;
         tuitionFee = 0;

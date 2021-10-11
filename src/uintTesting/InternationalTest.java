@@ -1,12 +1,11 @@
 package uintTesting;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+//import org.junit.Test;
+//import static org.junit.Assert.*;
 
 public class InternationalTest {
 
-    @Test
+   // @Test
     public void tuitionDue() {
        /* //Test that tuition is 29,737 for international students
         Profile test1Profile = new Profile("John Adams", "CS", true);

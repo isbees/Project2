@@ -27,9 +27,9 @@ public class Student {
     public Student(String name, Major major, int creditHours) {
         boolean fullTime = (creditHours - 12) >= 0;
 
+        lastPaid = new Date("00/00/00");
         this.creditHours = creditHours;
         this.student = new Profile(name, major, fullTime);
-        tuitionDue();
     }
 
     /**

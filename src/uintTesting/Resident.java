@@ -11,6 +11,7 @@ public class Resident extends Student {
     }
 
     public Resident(Profile student, int creditHours) {
+        lastPaid = new Date("00/00/00");
         this.student = student;
         this.creditHours = creditHours;
         tuitionFee = 0;
@@ -21,7 +22,8 @@ public class Resident extends Student {
     public Resident(String name, Major major, int creditHours) {
         boolean fullTime = (creditHours - 12) >= 0;
 
-        this.student = new Profile(name,major,fullTime);
+        lastPaid = new Date("00/00/00");
+        this.student = new Profile(name, major, fullTime);
         this.creditHours = creditHours;
         tuitionFee = 0;
         financialAid = 0;
@@ -36,7 +38,7 @@ public class Resident extends Student {
     @Override
     public String toString() {
         return String.format("%s:%d credit hours:tuition due:%1.2f:total payment:%1.2f:last payment date: %s:resident"
-                             ,student.toString(),creditHours,tuitionFee,totalPaid,lastPaid.getDate());
+                , student.toString(), creditHours, tuitionFee, totalPaid, lastPaid.getDate());  // lastPaid
     }
 
     @Override
@@ -61,7 +63,7 @@ public class Resident extends Student {
     @Override
     public boolean pay(double payment, Date datePaid) {
 
-        if ( payment <= tuitionFee ) {   // Check that the payment is less than the tuition fee
+        if (payment <= tuitionFee) {   // Check that the payment is less than the tuition fee
             totalPaid += payment;
             tuitionFee -= payment;
             lastPaid = datePaid;
@@ -90,7 +92,7 @@ public class Resident extends Student {
     }
 
     @Override
-    public int getCredit(){
+    public int getCredit() {
         return creditHours;
     }
 }

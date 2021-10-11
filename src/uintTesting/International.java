@@ -12,6 +12,7 @@ public class International extends NonResident {
     }
 
     public International(Profile student, int creditHours, boolean studyAbroad) {
+        lastPaid = new Date("00/00/00");
         this.student = student;
         this.creditHours = creditHours;
         this.studyAbroad = studyAbroad;

@@ -1,4 +1,5 @@
 package uintTesting;
+
 import java.util.StringTokenizer;
 import java.util.Calendar;
 
@@ -326,6 +327,11 @@ public class Date implements Comparable<Date> {
      */
     public String getDate() {
         String dateInFormat = getMonth() + "/" + getDay() + "/" + getYear();
+
+        if (month == 0 || day == 0 || year == 0) {
+            dateInFormat = "--/--/--";
+        }
+
         return dateInFormat;
     }
 }

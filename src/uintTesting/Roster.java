@@ -28,7 +28,7 @@ public class Roster {
         size += 4;
         Student[] plus4 = new Student[size];
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size - 4; i++) {
             plus4[i] = roster[i];
         }
 
@@ -162,11 +162,13 @@ public class Roster {
         }
 
         System.out.println("* list of students in the roster **");
-
         //Print the stuff here or coll empty
         for (int i = 0; i < size; i++) {
+
             if (null == roster[i]) {
                 continue;
+            } else {
+                System.out.println(roster[i].toString());
             }
         }
 

@@ -16,6 +16,7 @@ public class TriState extends NonResident {
     public TriState(String name, Major major, int creditHours, String state) {
         boolean fullTime = (creditHours - 12) >= 0;
 
+        lastPaid = new Date("00/00/00");
         this.student =  new Profile(name,major,fullTime);
         this.creditHours = creditHours;
         tuitionFee = 0;

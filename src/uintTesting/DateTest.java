@@ -1,8 +1,8 @@
 package uintTesting;
-import static org.junit.Assert.*;
+//import static org.junit.Assert.*;
 
 public class DateTest {
-
+/*
     @org.junit.Test
     public void isValid() {
         //Current date invalid
@@ -36,5 +36,5 @@ public class DateTest {
         //Year = 2021, Month=Feb, Day=28, testing that 2021 is not leap year
         Date test8 = new Date("2/28/2021");
         assertFalse(test7.isValid());
-    }
+    } */
 }
