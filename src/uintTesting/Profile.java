@@ -6,14 +6,28 @@ public class Profile {
     private String name;
     private Major major;
 
+    /**
+     * empty constructor
+     */
     public Profile() {
     }
 
+    /**
+     * constructor for testing since fullTime is omitted
+     * @param name of the student
+     * @param major of the student
+     */
     public Profile(String name, Major major) {
         this.name = name;
         this.major = major;
     }
 
+    /**
+     * constructor with all variables
+     * @param name
+     * @param major
+     * @param fullTime
+     */
     public Profile(String name, Major major, boolean fullTime) {
         this.fullTime = fullTime;
         this.name = name;

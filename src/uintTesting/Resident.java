@@ -118,4 +118,14 @@ public class Resident extends Student {
     public int getCredit() {
         return creditHours;
     }
+
+    /**
+     * finds if the account has paid once
+     *
+     * @return true if the total paid is more than 0
+     */
+    @Override
+    public boolean hadPaid() {
+        return totalPaid > 0;
+    }
 }

@@ -105,4 +105,14 @@ public class TriState extends NonResident {
     public boolean setFinancialAid(double financialAid) {
         return super.setFinancialAid(financialAid);
     }
+
+    /**
+     * finds if the account has paid once
+     *
+     * @return true if the total paid is more than 0
+     */
+    @Override
+    public boolean hadPaid() {
+        return totalPaid > 0;
+    }
 }

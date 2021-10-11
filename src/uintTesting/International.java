@@ -124,4 +124,14 @@ public class International extends NonResident {
     public double getTuitionFee() {
         return tuitionFee;
     }
+
+    /**
+     * finds if the account has paid once
+     *
+     * @return true if the total paid is more than 0
+     */
+    @Override
+    public boolean hadPaid() {
+        return totalPaid > 0;
+    }
 }

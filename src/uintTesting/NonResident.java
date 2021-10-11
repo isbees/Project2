@@ -106,4 +106,14 @@ public class NonResident extends Student {
     public boolean setFinancialAid(double financialAid) {
         return false;
     }
+
+    /**
+     * finds if the account has paid once
+     *
+     * @return true if the total paid is more than 0
+     */
+    @Override
+    public boolean hadPaid() {
+        return totalPaid > 0;
+    }
 }
