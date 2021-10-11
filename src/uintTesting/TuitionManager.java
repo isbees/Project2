@@ -2,7 +2,6 @@ package uintTesting;
 import java.text.NumberFormat;
 import java.util.StringTokenizer;
 import java.util.Scanner;
-
 /**
  * The TuitionManager class runs from Project2's main method and is the interface for commands of roster.
  *
@@ -10,6 +9,9 @@ import java.util.Scanner;
  */
 
 public class TuitionManager {
+    public static final int QUIT_COMMAND = 9;
+    public static final int INVALID_COMMAND = -1;
+
     /**
      * Main method
      *
@@ -42,11 +44,11 @@ public class TuitionManager {
             //cmdType is index from: {"AI","AT","AN","AR","R","C","S","F","T","Q"}
             int cmdType = checkCmdValidity(letters, st);
             //If it's invalid command
-            if (cmdType == -1) {
+            if (cmdType == INVALID_COMMAND) {
                 continue;
             }
             //If it's a Q
-            if (cmdType == 9) {
+            if (cmdType == QUIT_COMMAND) {
                 break;
             }
             doCommand(letters, st, rost);
@@ -70,7 +72,7 @@ public class TuitionManager {
         //If not capitalized, invalid
         if (!(letters.toUpperCase().equals(letters))) {
             System.out.println("Command "+ "'"+letters+"'"+ "not supported!");
-            return -1;
+            return INVALID_COMMAND;
         }
         //If not in list of good commands, invalid.
         String[] validCommands = {"AI", "AT", "AN", "AR", "R", "C", "S", "F", "T", "Q", "P", "PT", "PN"};
@@ -82,7 +84,7 @@ public class TuitionManager {
         }
         if (cmdIndex == -1) {
             System.out.println("Not a valid command!");
-            return -1;
+            return INVALID_COMMAND;
         }
         //Check that there's the right amount of tokens
         int totalTokens = st.countTokens() + 1;
@@ -90,15 +92,15 @@ public class TuitionManager {
         //Check that of C,P,PT,PN there's 1 total token.
         if (letters.equals("C") || letters.equals("P") || letters.equals("PT") || letters.equals("PN")) {
             if (totalTokens != 1) {
-                System.out.println("Invalid: Extra number of tokens for C, P, PT, or PN.");
-                cmdIndex = -1;
+                System.out.println("Missing data in command line.");
+                cmdIndex = INVALID_COMMAND;
             }
         }
         //Check that for remove, there's 3 total tokens.
         if (letters.equals("R")) {
             if (totalTokens != 3) {
                 System.out.println("Missing data in command line.");
-                cmdIndex = -1;
+                cmdIndex = INVALID_COMMAND;
             }
         }
         //Check that for S, F, AR, AN there's 4 total tokens.
@@ -107,14 +109,14 @@ public class TuitionManager {
                 if(totalTokens==3){
                     if(letters.equals("AR")||letters.equals("AN")){
                         System.out.println("Credit hours missing.");
-                        return -1;
+                        return INVALID_COMMAND;
                     }
                     if(letters.equals("F")){
                         System.out.println("Missing amount");
                     }
                 }
                 System.out.println("Missing data in command line.");
-                cmdIndex = -1;
+                cmdIndex = INVALID_COMMAND;
             }
         }
         //Check that for AI, AT, T, there's 5 total tokens.
@@ -126,10 +128,10 @@ public class TuitionManager {
                     } else {
                         System.out.println("Payment amount missing.");
                     }
-                    return -1;
+                    return INVALID_COMMAND;
                 }
                 System.out.println("Missing data in command line.");
-                cmdIndex = -1;
+                cmdIndex = INVALID_COMMAND;
             }
         }
         return cmdIndex;
@@ -224,8 +226,6 @@ public class TuitionManager {
             if (cmd.equals("AN")) {
                 NonResident newStudent = new NonResident(name, major, credits);
                 addStudentWithPrinting(roster, newStudent);
-
-
                 return;
             } else if (cmd.equals("AR")) {
 
@@ -435,7 +435,9 @@ public class TuitionManager {
                 return;
             }
             double paymentAmount = Double.parseDouble(paymentAmountString);
-
+            if(paymentAmount<=0){
+                System.out.println("Invalid amount.");
+            }
             //Check the date is valid
             String dateOfPaymentString = st.nextToken();
             Date dateOfPayment = new Date(dateOfPaymentString);
