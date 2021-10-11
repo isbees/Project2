@@ -299,7 +299,7 @@ public class TuitionManager {
         }
         if (cmd.equals("C")) {
             roster.calculateTuition();
-            System.out.println("Calculation complete.");
+            System.out.println("Calculation completed.");
             return;
         }
 
