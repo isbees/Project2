@@ -14,19 +14,17 @@ public class Profile {
         this.major = major;
     }
 
-    public Profile(String name, String major, boolean fullTime){
+    public Profile(String name, Major major, boolean fullTime){
         this.fullTime = fullTime;
         this.name = name;
-        this.major = Major.valueOf(major.toUpperCase());
+        this.major = major;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Profile) {
             Profile newProfile = (Profile) obj;
-            if (newProfile.name.equals(this.name) && newProfile.major.equals(this.major)) {
-                return true;
-            }
+            return newProfile.name.equals(this.name) && newProfile.major.equals(this.major);
         }
         return false;
     }

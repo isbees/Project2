@@ -24,7 +24,7 @@ public class Student {
      * @param major       the student is studying
      * @param creditHours that the student is taking
      */
-    public Student(String name, String major, int creditHours) {
+    public Student(String name, Major major, int creditHours) {
         boolean fullTime = (creditHours - 12) >= 0;
 
         this.creditHours = creditHours;
@@ -54,7 +54,7 @@ public class Student {
         return student.toString() + ":" + creditHours;  // will add more to this to string later. + ":" +
     }
 
-    public String getProfile(){
+    public String getProfile() {
         return student.toString();
     }
 
@@ -84,8 +84,30 @@ public class Student {
         return false;
     }
 
-    public int getCredit(){
+    /**
+     * Getter for creditHours
+     *
+     * @return int the credit hours
+     */
+    public int getCredit() {
         return creditHours;
     }
 
+    /**
+     * Getter for lastPaid
+     *
+     * @return Date the date that the student last paid
+     */
+    public Date getLastPaid() {
+        return lastPaid;
+    }
+
+    /**
+     * finds if the account has paid once
+     *
+     * @return true if the total paid is more than 0
+     */
+    public boolean hadPaid() {
+        return totalPaid > 0;
+    }
 } //end Student

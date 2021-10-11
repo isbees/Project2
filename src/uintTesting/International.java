@@ -20,9 +20,9 @@ public class International extends NonResident {
         totalPaid = 0;
     }
 
-    public boolean setStudyAbroad(){
+    public boolean setStudyAbroad(boolean abroadState){
         if(creditHours <= 12){
-            studyAbroad = !studyAbroad;
+            studyAbroad = abroadState;
             tuitionDue();
             return true;
         }

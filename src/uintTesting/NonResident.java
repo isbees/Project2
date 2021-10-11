@@ -19,6 +19,16 @@ public class NonResident extends Student {
         totalPaid = 0;
     }
 
+    public NonResident(String name, Major major, int creditHours) {
+        boolean fullTime = (creditHours - 12) >= 0;
+
+        this.student = new Profile(name,major,fullTime);
+        this.creditHours = creditHours;
+        tuitionFee = 0;
+        financialAid = 0;
+        totalPaid = 0;
+    }
+
     /**
      * will return a string with the variables and ends in non resident
      *

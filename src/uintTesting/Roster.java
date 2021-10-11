@@ -26,7 +26,7 @@ public class Roster {
      */
     private void grow() {
         size += 4;
-        Student [] plus4 = new Student[size];
+        Student[] plus4 = new Student[size];
 
         for (int i = 0; i < size; i++) {
             plus4[i] = roster[i];
@@ -85,7 +85,6 @@ public class Roster {
      *
      * @param student that we're trying to remove from the roster
      * @return boolean true if removes, false if can't find the Student
-     *
      */
     public boolean remove(Student student) {
 
@@ -108,27 +107,27 @@ public class Roster {
     }
 
 
-    public Student findStudent(Student s){
+    public Student findStudent(Student s) {
         return roster[find(s)];
     }
 
     /**
      * Calculated tuition for the whole roster
      */
-    public void calculateTuition(){
-        for (int i = 0; i < size; i++){
-            if(roster[i] == null) {
+    public void calculateTuition() {
+        for (int i = 0; i < size; i++) {
+            if (roster[i] == null) {
                 return;
             }
             roster[i].tuitionDue();
         }
     }
 
-    public boolean pay(Student student, double amount,Date date) {
+    public boolean pay(Student student, double amount, Date date) {
         int i = find(student);
-        return roster[i].pay(amount,date);
+        return roster[i].pay(amount, date);
     }
-    
+
     public boolean setFinancialAid(Student student, double amount) {
         int i = find(student);
         return roster[i].setFinancialAid(amount);
@@ -136,17 +135,18 @@ public class Roster {
 
 
     /**
-     * Set the abroad status to
-     * @param student
-     * @return
+     * Set the abroad status to the inputed value if the student is international
+     *
+     * @param student the international student we want to flip the
+     * @return false if the student was not found or if the credits were more than 12
      */
-    public boolean setStudyAbroad(Student student){
+    public boolean setStudyAbroad(Student student, boolean abroadState) {
         int i = find(student);
-        if(i == -1)
+        if (i == -1)
             return false;
 
-        if(roster[i] instanceof International){ // should return true if the student has more than 12 credits
-            return ((International) roster[i]).setStudyAbroad();
+        if (roster[i] instanceof International) { // should return true if the student has more than 12 credits
+            return ((International) roster[i]).setStudyAbroad(abroadState);
         }
 
         return false;
@@ -160,13 +160,18 @@ public class Roster {
             System.out.println("The collection is empty.");
             return;
         }
+
+        System.out.println("* list of students in the roster **");
+
         //Print the stuff here or coll empty
         for (int i = 0; i < size; i++) {
             if (null == roster[i]) {
                 continue;
             }
         }
-    } //display the list without specifying the order
+
+        System.out.println("* end of roster **");
+    }
 
     /**
      * printByName will sort roster alphabetically and then print
@@ -176,7 +181,7 @@ public class Roster {
             System.out.println("The collection is empty.");
             return;
         }
-        System.out.println("*List of students in the roster.");
+        System.out.println("* list of students ordered by name **");
 
         int total = size;
         Student[] sort = new Student[size];
@@ -202,6 +207,46 @@ public class Roster {
         for (int i = size - 1; i >= 0; i--) {                  // prints the roster
             System.out.println(sort[i].toString());
         }
-        System.out.println("*End of list");
+        System.out.println("* end of roster **");
+    }
+
+    /**
+     * printByTuition will find all the students that paid and sort them by last payment date. Prints the resulting list
+     */
+    public void printByTuition() {
+        if (roster == null) {
+            System.out.println("The collection is empty.");
+            return;
+        }
+        System.out.println("* list of students made payments ordered by payment date **");
+
+        Student[] sort = new Student[size];
+        int sortIndex = 0;
+
+        for (int i = 0; i < size; i++) { // just sets sort = to roster
+            if (roster[i].hadPaid()) {
+                sort[sortIndex] = roster[i];
+                sortIndex++;
+            }
+        }
+
+        boolean sorted = false;
+
+        while (!sorted) {
+            sorted = true;
+            for (int i = 0; i < size - 1; i++) {
+                if (sort[i].getLastPaid().compareTo(sort[i + 1].getLastPaid()) > 0) {
+                    Student temp = sort[i];
+                    sort[i] = sort[i + 1];
+                    sort[i + 1] = temp;
+                    sorted = false;
+                }
+            }
+        }
+
+        for (int i = size - 1; i >= 0; i--) {                  // prints the roster
+            System.out.println(sort[i].toString());
+        }
+        System.out.println("* end of roster **");
     }
 }
