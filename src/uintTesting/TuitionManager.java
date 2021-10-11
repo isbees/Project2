@@ -1,5 +1,4 @@
 package uintTesting;
-
 import java.text.NumberFormat;
 import java.util.StringTokenizer;
 import java.util.Scanner;
@@ -104,7 +103,7 @@ public class TuitionManager {
     public static void addStudentWithPrinting(Roster roster, Student newStudent) {
         boolean added = roster.add(newStudent);
         if (!added) {
-            System.out.println("Didn't add.");
+            System.out.println("Student already in the roster.");
         } else {
             System.out.println("Added student.");
         }
@@ -140,7 +139,12 @@ public class TuitionManager {
         }
         int credits = Integer.parseInt(creditsString);
         if (credits < 3 || credits > 24) {
-            System.out.println("Invalid credit amount");
+            if(credits < 3){
+                System.out.println("Credits must be minimum 3.");
+            }
+            else{
+                System.out.println("Credits must be maximum 24.");
+            }
             return;
         }
         if (cmd.equals("AN") || cmd.equals("AR")) {
@@ -243,6 +247,7 @@ public class TuitionManager {
         //Check that it's a valid major
         int validMajor = -1;
         String[] validMajors = {"CS", "IT", "BA", "EE", "ME"};
+        String majorHolder = major;
         major = major.toUpperCase();                            // added the toUpperCase to get rid of redundant code
 
         for (int i = 0; i < validMajors.length; i++) {
@@ -251,7 +256,7 @@ public class TuitionManager {
             }
         }
         if (validMajor == -1) {
-            System.out.println("Invalid major name");
+            System.out.println("'"+majorHolder+"'"+", invalid major name.");
             return;
         }   // after this point we know that major is valid so we convert it to the Major enum
 

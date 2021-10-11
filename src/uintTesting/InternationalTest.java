@@ -1,10 +1,10 @@
+package uintTesting;
 
-//import org.junit.Test;
-//import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 
 public class InternationalTest {
 
-    @Test
+    @org.junit.Test
     public void tuitionDue() {
 
         //Test 1 - If study abroad parttime

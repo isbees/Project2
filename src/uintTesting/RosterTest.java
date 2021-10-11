@@ -1,12 +1,11 @@
+package uintTesting;
 
-//import org.junit.Test;
-
-//import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 
 public class RosterTest {
 
     //Able to add to empty, add to 1, add to 2 for tristate, resident, nonresident, and international
-    @Test
+    @org.junit.Test
     public void add() {
         Major itMajor = Major.valueOf("IT");
         Major csMajor = Major.valueOf("CS");
@@ -105,7 +104,7 @@ public class RosterTest {
     }
 
     //Able remove from 2 or 1, but not from empty for tristate, resident, nonresident, and international, or student isn't in it
-    @Test
+    @org.junit.Test
     public void remove() {
         Major itMajor = Major.valueOf("IT");
         Major csMajor = Major.valueOf("CS");
