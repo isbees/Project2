@@ -126,7 +126,7 @@ public class Roster {
      */
     public void calculateTuition() {
         for (int i = 0; i < size; i++) {
-            if (roster[i] == null) {
+            if (null==roster[i]) {
                 return;
             }
             roster[i].tuitionDue();

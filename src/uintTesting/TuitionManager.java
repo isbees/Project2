@@ -30,8 +30,8 @@ public class TuitionManager {
      */
     public static void run() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("TuitionManager Started");
         Roster rost = new Roster();
+        System.out.println("TuitionManager Started");
         //Read in the inputs
         while (sc.hasNextLine()) {
             String inputLine = sc.nextLine();

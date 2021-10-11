@@ -38,8 +38,14 @@ public class Resident extends Student {
      */
     @Override
     public String toString() {
-        return String.format("%s:%d credit hours:tuition due:%1.2f:total payment:%1.2f:last payment date: %s:resident"
-                , student.toString(), creditHours, tuitionFee, totalPaid, lastPaid.getDate());  // lastPaid
+        if(financialAid>0) {
+            return String.format("%s:%d credit hours:tuition due:%1.2f:total payment:%1.2f:last payment date: %s:resident: financial aid $%1.2f"
+                    , student.toString(), creditHours, tuitionFee, totalPaid, lastPaid.getDate(), financialAid);  // lastPaid
+        }
+        else{
+            return String.format("%s:%d credit hours:tuition due:%1.2f:total payment:%1.2f:last payment date: %s:resident"
+                    , student.toString(), creditHours, tuitionFee, totalPaid, lastPaid.getDate());  // lastPaid
+        }
     }
 
     @Override
@@ -72,7 +78,7 @@ public class Resident extends Student {
                     tuitionFee += (creditHours - 16) * 404;
                 }
             }
-
+            tuitionFee-=financialAid;
             calculated = true;
         }
     }
@@ -110,7 +116,8 @@ public class Resident extends Student {
         }
 
         this.financialAid = financialAid;
-
+        calculated=false;
+        tuitionDue();
         return true;
     }
 
