@@ -92,14 +92,14 @@ public class TuitionManager {
         if (letters.equals("C") || letters.equals("P") || letters.equals("PT") || letters.equals("PN")) {
             if (totalTokens != 1) {
                 System.out.println("Missing data in command line.");
-                cmdIndex = INVALID_COMMAND;
+                return INVALID_COMMAND;
             }
         }
         //Check that for remove, there's 3 total tokens.
         if (letters.equals("R")) {
             if (totalTokens != 3) {
                 System.out.println("Missing data in command line.");
-                cmdIndex = INVALID_COMMAND;
+                return INVALID_COMMAND;
             }
         }
         //Check that for S, F, AR, AN there's 4 total tokens.
@@ -111,11 +111,12 @@ public class TuitionManager {
                         return INVALID_COMMAND;
                     }
                     if(letters.equals("F")){
-                        System.out.println("Missing amount");
+                        System.out.println("Missing the amount.");
+                        return INVALID_COMMAND;
                     }
                 }
                 System.out.println("Missing data in command line.");
-                cmdIndex = INVALID_COMMAND;
+                return INVALID_COMMAND;
             }
         }
         //Check that for AI, AT 5 tokens
@@ -127,7 +128,7 @@ public class TuitionManager {
                 }
                 else {
                     System.out.println("Missing data in command line.");
-                    cmdIndex = INVALID_COMMAND;
+                    return INVALID_COMMAND;
                 }
             }
         }
@@ -136,7 +137,7 @@ public class TuitionManager {
             if (totalTokens != 5) {
                 if(totalTokens==3){
                     System.out.println("Payment amount missing.");
-                    cmdIndex=INVALID_COMMAND;
+                    return INVALID_COMMAND;
                 }
             }
         }
@@ -393,7 +394,7 @@ public class TuitionManager {
             double financialAid = Double.parseDouble(finAid);
             //Check it's 0<x<=10k
             if (financialAid <= 0 || financialAid > 10000) {
-                System.out.println("FinAid exceeds 10k or is negative! No way you're getting that much money with a GPA like that bruh.");
+                System.out.println("Invalid amount.");
                 return;
             }
 
