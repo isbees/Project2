@@ -14,7 +14,7 @@ public class Roster {
     private int find(Student student) {
         int index;
         for (index = 0; index < size; index++) {
-            if (student.equals(roster[index])) {
+            if (student.getProfile().equals(roster[index].getProfile())) {
                 return index;
             }
         }
@@ -105,6 +105,51 @@ public class Roster {
         roster[size - 1] = null;
 
         return true;
+    }
+
+
+    public Student findStudent(Student s){
+        return roster[find(s)];
+    }
+
+    /**
+     * Calculated tuition for the whole roster
+     */
+    public void calculateTuition(){
+        for (int i = 0; i < size; i++){
+            if(roster[i] == null) {
+                return;
+            }
+            roster[i].tuitionDue();
+        }
+    }
+
+    public boolean pay(Student student, double amount,Date date) {
+        int i = find(student);
+        return roster[i].pay(amount,date);
+    }
+    
+    public boolean setFinancialAid(Student student, double amount) {
+        int i = find(student);
+        return roster[i].setFinancialAid(amount);
+    }
+
+
+    /**
+     * Set the abroad status to
+     * @param student
+     * @return
+     */
+    public boolean setStudyAbroad(Student student){
+        int i = find(student);
+        if(i == -1)
+            return false;
+
+        if(roster[i] instanceof International){ // should return true if the student has more than 12 credits
+            return ((International) roster[i]).setStudyAbroad();
+        }
+
+        return false;
     }
 
     /**

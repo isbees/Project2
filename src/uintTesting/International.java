@@ -21,8 +21,9 @@ public class International extends NonResident {
     }
 
     public boolean setStudyAbroad(){
-        if(creditHours >= 12){
-            studyAbroad = true;
+        if(creditHours <= 12){
+            studyAbroad = !studyAbroad;
+            tuitionDue();
             return true;
         }
 
@@ -67,22 +68,22 @@ public class International extends NonResident {
     }
 
     /**
-     * will make a payment so long as the payment isn't greater than the tuition.
+     * will make a payment so long as the payment isn't greater than the tuitionfee.
      *
      * @param payment the amount to be paid
-     * @return false if the totalPaid is equal to tutionFee or if the payment size is too large.
+     * @return false if the payment is too large.
      */
-    public boolean pay(int payment, Date datePaid) {
+    @Override
+    public boolean pay(double payment, Date datePaid) {
 
-        if (tuitionFee - payment < 0) {   // Check that the payment is less than the tuition fee
-            return false;
+        if ( payment <= tuitionFee ) {   // Check that the payment is less than the tuition fee
+            totalPaid += payment;
+            tuitionFee -= payment;
+            lastPaid = datePaid;
+            return true;
         }
 
-        totalPaid += payment;
-        lastPaid = datePaid;
-
-        return true;
-
+        return false;
     }
 
     /**
@@ -92,7 +93,7 @@ public class International extends NonResident {
      * @return false if the financial aid was already given
      */
     @Override
-    public boolean setFinancialAid(int financialAid) {
+    public boolean setFinancialAid(double financialAid) {
         return super.setFinancialAid(financialAid);
     }
 }

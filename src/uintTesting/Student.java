@@ -54,6 +54,10 @@ public class Student {
         return student.toString() + ":" + creditHours;  // will add more to this to string later. + ":" +
     }
 
+    public String getProfile(){
+        return student.toString();
+    }
+
     /**
      * does nothing here since the subclasses determine the tuition amount.
      */
@@ -66,9 +70,8 @@ public class Student {
      * @param payment the amount to be paid
      * @return false
      */
-    public boolean pay(int payment, Date datePaid) {
+    public boolean pay(double payment, Date datePaid) {
         return false;
-
     }
 
     /**
@@ -77,8 +80,12 @@ public class Student {
      * @param financialAid the amount given
      * @return false
      */
-    public boolean setFinancialAid(int financialAid) {
+    public boolean setFinancialAid(double financialAid) {
         return false;
+    }
+
+    public int getCredit(){
+        return creditHours;
     }
 
 } //end Student

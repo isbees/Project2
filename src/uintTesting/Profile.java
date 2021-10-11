@@ -9,6 +9,11 @@ public class Profile {
     public Profile(){
     }
 
+    public Profile(String name, Major major){
+        this.name = name;
+        this.major = major;
+    }
+
     public Profile(String name, String major, boolean fullTime){
         this.fullTime = fullTime;
         this.name = name;
