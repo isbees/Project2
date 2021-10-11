@@ -121,7 +121,7 @@ public class International extends NonResident {
             }
             studyAbroad=true;
             totalPaid=0;
-            lastPaid = new Date("0/0/0");
+            lastPaid = new Date("00/00/00");
         }
         else{
             studyAbroad=false;
