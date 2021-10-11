@@ -24,9 +24,9 @@ public class Profile {
 
     /**
      * constructor with all variables
-     * @param name
-     * @param major
-     * @param fullTime
+     * @param name of the student
+     * @param major of the student
+     * @param fullTime status of the student
      */
     public Profile(String name, Major major, boolean fullTime) {
         this.fullTime = fullTime;

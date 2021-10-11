@@ -120,6 +120,15 @@ public class Resident extends Student {
     }
 
     /**
+     * Getter for lastPaid
+     *
+     * @return Date the date that the student last paid
+     */
+    public Date getLastPaid() {
+        return lastPaid;
+    }
+
+    /**
      * finds if the account has paid once
      *
      * @return true if the total paid is more than 0
