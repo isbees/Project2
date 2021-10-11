@@ -17,7 +17,7 @@ public class TriState extends NonResident {
         boolean fullTime = (creditHours - 12) >= 0;
 
         lastPaid = new Date("00/00/00");
-        this.student =  new Profile(name,major,fullTime);
+        this.student = new Profile(name, major, fullTime);
         this.creditHours = creditHours;
         this.state = state;
         tuitionFee = 0;
@@ -55,22 +55,23 @@ public class TriState extends NonResident {
 
     @Override
     public void tuitionDue() {
-        if (!student.getFullTime()) {
-            tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
-            tuitionFee += 966 * creditHours;
-        } else {
-            tuitionFee = UNIVERSITY_FEE;
-            tuitionFee += 29737;
-            if(creditHours > 16){
-                tuitionFee += (creditHours - 16) * 966;
-            }
-            if (state.equals("NY")) {
-                tuitionFee -= 4000;
-            } else if (state.equals("CT")) {
-                tuitionFee -= 5000;
+        if (tuitionFee == 0) {
+            if (!student.getFullTime()) {
+                tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
+                tuitionFee += 966 * creditHours;
+            } else {
+                tuitionFee = UNIVERSITY_FEE;
+                tuitionFee += 29737;
+                if (creditHours > 16) {
+                    tuitionFee += (creditHours - 16) * 966;
+                }
+                if (state.equals("NY")) {
+                    tuitionFee -= 4000;
+                } else if (state.equals("CT")) {
+                    tuitionFee -= 5000;
+                }
             }
         }
-
     }
 
     /**
@@ -82,7 +83,7 @@ public class TriState extends NonResident {
     @Override
     public boolean pay(double payment, Date datePaid) {
 
-        if ( payment <= tuitionFee ) {   // Check that the payment is less than the tuition fee
+        if (payment <= tuitionFee) {   // Check that the payment is less than the tuition fee
             totalPaid += payment;
             tuitionFee -= payment;
             lastPaid = datePaid;

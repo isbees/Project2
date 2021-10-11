@@ -60,18 +60,18 @@ public class Resident extends Student {
 
     @Override
     public void tuitionDue() {
-        if (!student.getFullTime()) {
-            tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
-            tuitionFee += 404 * creditHours;
-        } else {
-            tuitionFee = UNIVERSITY_FEE;
-            tuitionFee += 12536;
-            if(creditHours > 16){
-                tuitionFee += (creditHours - 16) * 404;
+        if (tuitionFee == 0) {
+            if (!student.getFullTime()) {
+                tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
+                tuitionFee += 404 * creditHours;
+            } else {
+                tuitionFee = UNIVERSITY_FEE;
+                tuitionFee += 12536;
+                if (creditHours > 16) {
+                    tuitionFee += (creditHours - 16) * 404;
+                }
             }
         }
-
-
     }
 
     /**

@@ -7,7 +7,7 @@ public class NonResident extends Student {
     private int creditHours;
     private double tuitionFee, financialAid, totalPaid;
 
-    public NonResident(){
+    public NonResident() {
 
     }
 
@@ -24,7 +24,7 @@ public class NonResident extends Student {
         boolean fullTime = (creditHours - 12) >= 0;
 
         lastPaid = new Date("00/00/00");
-        this.student = new Profile(name,major,fullTime);
+        this.student = new Profile(name, major, fullTime);
         this.creditHours = creditHours;
         tuitionFee = 0;
         financialAid = 0;
@@ -39,7 +39,7 @@ public class NonResident extends Student {
     @Override
     public String toString() {
         return String.format("%s:%d credit hours:tuition due:%1.2f:total payment:%1.2f:last payment date: %s:non-resident"
-                ,student.toString(),creditHours,tuitionFee,totalPaid,lastPaid.getDate());
+                , student.toString(), creditHours, tuitionFee, totalPaid, lastPaid.getDate());
     }
 
     @Override
@@ -61,14 +61,16 @@ public class NonResident extends Student {
 
     @Override
     public void tuitionDue() {
-        if (!student.getFullTime()) {
-            tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
-            tuitionFee += 966 * creditHours;
-        } else {
-            tuitionFee = UNIVERSITY_FEE;
-            tuitionFee += 29737;
-            if(creditHours > 16){
-                tuitionFee += (creditHours - 16) * 966;
+        if (tuitionFee == 0) {
+            if (!student.getFullTime()) {
+                tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
+                tuitionFee += 966 * creditHours;
+            } else {
+                tuitionFee = UNIVERSITY_FEE;
+                tuitionFee += 29737;
+                if (creditHours > 16) {
+                    tuitionFee += (creditHours - 16) * 966;
+                }
             }
         }
     }
@@ -82,7 +84,7 @@ public class NonResident extends Student {
     @Override
     public boolean pay(double payment, Date datePaid) {
 
-        if ( payment <= tuitionFee ) {   // Check that the payment is less than the tuition fee
+        if (payment <= tuitionFee) {   // Check that the payment is less than the tuition fee
             totalPaid += payment;
             tuitionFee -= payment;
             lastPaid = datePaid;

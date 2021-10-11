@@ -29,8 +29,8 @@ public class International extends NonResident {
     @Override
     public String toString() {
         String s = String.format("%s:%d credit hours:tuition due:%1.2f:total payment:%1.2f:last payment date: %s:non-resident:international:"
-                                 , student.toString(), creditHours, tuitionFee, totalPaid, lastPaid.getDate());
-        if(studyAbroad){
+                , student.toString(), creditHours, tuitionFee, totalPaid, lastPaid.getDate());
+        if (studyAbroad) {
             s += "study abroad";
         }
         return s;
@@ -55,23 +55,25 @@ public class International extends NonResident {
 
     @Override
     public void tuitionDue() {
-        if (studyAbroad) {
-            if (!student.getFullTime()) {
-                tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
+        if (tuitionFee == 0) {
+            if (studyAbroad) {
+                if (!student.getFullTime()) {
+                    tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
+                } else {
+                    tuitionFee = UNIVERSITY_FEE;
+                    tuitionFee += 2650;
+                }
             } else {
-                tuitionFee = UNIVERSITY_FEE;
-                tuitionFee += 2650;
-            }
-        } else {
-            if (!student.getFullTime()) {
-                tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
-                tuitionFee += 966 * creditHours;
-            } else {
-                tuitionFee = UNIVERSITY_FEE;
-                tuitionFee += 29737;
-                tuitionFee += 2650;
-                if(creditHours > 16){
-                    tuitionFee += (creditHours - 16) * 966;
+                if (!student.getFullTime()) {
+                    tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
+                    tuitionFee += 966 * creditHours;
+                } else {
+                    tuitionFee = UNIVERSITY_FEE;
+                    tuitionFee += 29737;
+                    tuitionFee += 2650;
+                    if (creditHours > 16) {
+                        tuitionFee += (creditHours - 16) * 966;
+                    }
                 }
             }
         }
@@ -86,7 +88,7 @@ public class International extends NonResident {
     @Override
     public boolean pay(double payment, Date datePaid) {
 
-        if ( payment <= tuitionFee ) {   // Check that the payment is less than the tuition fee
+        if (payment <= tuitionFee) {   // Check that the payment is less than the tuition fee
             totalPaid += payment;
             tuitionFee -= payment;
             lastPaid = datePaid;
@@ -107,8 +109,8 @@ public class International extends NonResident {
         return super.setFinancialAid(financialAid);
     }
 
-    public boolean setStudyAbroad(boolean abroadState){
-        if(creditHours <= 12){
+    public boolean setStudyAbroad(boolean abroadState) {
+        if (creditHours <= 12) {
             studyAbroad = abroadState;
             tuitionDue();
             return true;
@@ -117,7 +119,7 @@ public class International extends NonResident {
         return false;
     }
 
-    public double getTuitionFee(){
+    public double getTuitionFee() {
         return tuitionFee;
     }
 }
