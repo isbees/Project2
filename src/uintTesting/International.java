@@ -115,19 +115,19 @@ public class International extends NonResident {
         if(studyAbroad==abroadState){
             return false;
         }
-        if (creditHours <= 12) {
-            studyAbroad = abroadState;
-            tuitionDue();
-        }
-        //If they were > fulltime and domestic, now they're at 12,
-        // and their date is 0's so it'll print -/-/- in our getDate()
-        if(creditHours>12 && studyAbroad==false){
+        if(studyAbroad==false){
+            if(creditHours>12){
+                creditHours=12;
+            }
             studyAbroad=true;
-            creditHours=12;
             totalPaid=0;
-            Date lastPaid = new Date("0/0/0");
-            tuitionDue();
+            lastPaid = new Date("0/0/0");
         }
+        else{
+            studyAbroad=false;
+        }
+        calculated=false;
+        tuitionDue();
         return true;
     }
 

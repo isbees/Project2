@@ -412,7 +412,7 @@ public class TuitionManager {
             //Check if student is Resident
             boolean isResident = (s instanceof Resident);
             if (!isResident) {
-                System.out.println("Not a resident.");
+                System.out.println("Not a resident student.");
                 return;
             }
 
