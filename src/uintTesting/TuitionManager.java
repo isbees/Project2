@@ -120,11 +120,13 @@ public class TuitionManager {
         //Check that for AI, AT, T, there's 5 total tokens.
         if (letters.equals("AI") || letters.equals("AT") || letters.equals("T")) {
             if (totalTokens != 5) {
-                if(letters.equals("AI")||letters.equals("AT")){
-                    if(totalTokens==3){
+                if(totalTokens==3){
+                    if(letters.equals("AI") || letters.equals("AT")) {
                         System.out.println("Credit hours missing.");
-                        return -1;
+                    } else {
+                        System.out.println("Payment amount missing.");
                     }
+                    return -1;
                 }
                 System.out.println("Missing data in command line.");
                 cmdIndex = -1;
@@ -264,8 +266,9 @@ public class TuitionManager {
                 return;
             }
             boolean studyAbroad = Boolean.parseBoolean(studyAbroadTest);
+            boolean fullTime = credits >= 12;
 
-            Profile intStudentProfile = new Profile(name, major);
+            Profile intStudentProfile = new Profile(name, major, fullTime);
             International newStudent = new International(intStudentProfile, credits, studyAbroad);
             addStudentWithPrinting(roster, newStudent);
 
