@@ -4,7 +4,7 @@ import java.util.StringTokenizer;
 import java.util.Calendar;
 
 /**
- * The DateTest class tests that the isValid() method works correctly.
+ * The Date class holds the date in mm/dd/yyyy
  *
  * @author Zachary Goldman
  */
@@ -45,10 +45,9 @@ public class Date implements Comparable<Date> {
      * @return valid, true if a valid date, false otherwise
      */
     public boolean isValid() {
-        boolean valid = false;
         //Check the month is valid
         if (this.month > 12 || this.month < 1) {
-            return valid;
+            return false;
         }
 
         //Check the day is valid
@@ -73,28 +72,27 @@ public class Date implements Comparable<Date> {
             }
         }
         if (!dayValid) {
-            return valid;
+            return false;
         }
         //Check the year is valid
 
         //Not too early or late (before 2021 or after 2021)
         Date now = new Date();
         if (this.year < 2021 || this.year > now.year) {
-            return valid;
+            return false;
         }
         if (this.year == now.year) {
             if (this.month > now.month) {
-                return valid;
+                return false;
             }
             //If it's October 2021 but equal or after our day, invalid
             if (this.month == now.month) {
                 if (this.day >= now.day) {
-                    return valid;
+                    return false;
                 }
             }
         }
-        valid = true;
-        return valid;
+        return true;
     }
 
 

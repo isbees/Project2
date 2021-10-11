@@ -145,9 +145,9 @@ public class TuitionManager {
     }
 
     /**
-     * AddStudentWithPrinting is called by the doCommand method below,
-     * and if the command was to add a type of student,
-     * this method calls add() from the Roster class, then prints out if it worked or not.
+     * AddStudentWithPrinting is called by the addStudentPartOne method below when testing to see if
+     * adding a student is successful.
+     * This method calls add() from the Roster class, then prints out if it worked or not.
      *
      * @param roster     that is the roster we're dealing with
      * @param newStudent which is the student we're trying to add
@@ -194,7 +194,7 @@ public class TuitionManager {
     }
 
     /**
-     * addStudentCommand is called by the doCommand if the command is adding a student.
+     * addStudentCommandPartOne is called by the doCommand if the command is to add a student.
      * This is in a separate method so as to make the class more modularized.
      * Here we get the credits and extra info about the student we're adding,
      * and then call the addStudentWithPrinting method to actually add them and
@@ -206,7 +206,7 @@ public class TuitionManager {
      * @param st     the StringTokenizer holding the rest of the information of the student
      * @param roster the roster we're adding the student to
      */
-    public static void addStudentCommand(String cmd, String name, Major major, StringTokenizer st, Roster roster) {
+    public static void addStudentCommandPartOne(String cmd, String name, Major major, StringTokenizer st, Roster roster) {
         //Now can go onto adds, finding credits
 
         String creditsString = st.nextToken();
@@ -352,7 +352,7 @@ public class TuitionManager {
         }
 
         //Next comes S,F, AT, AR, AN. Gotta check the next token for them.
-        //To make it simpler, I put the AT, AR, and AN all with AI in addStudentCommand()
+        //To make it simpler, I put the AT, AR, and AN all with AI in addStudentCommandPartOne()
         if (cmd.equals("S")) {
             //Check the last token is "true" or "false"
             String studyAbroadTest = st.nextToken();
@@ -462,6 +462,6 @@ public class TuitionManager {
             return;
         }
         //We're adding a student as those are the only commands left -> Go deal with that
-        addStudentCommand(cmd, name, majorM, st, roster);
+        addStudentCommandPartOne(cmd, name, majorM, st, roster);
     }
 }

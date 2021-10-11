@@ -123,9 +123,7 @@ public class RosterTest {
      */
     @org.junit.Test
     public void remove() {
-        Major itMajor = Major.valueOf("IT");
         Major csMajor = Major.valueOf("CS");
-        Major eeMajor = Major.valueOf("EE");
 
         //Making usable international, nonresident, tristate, resident, and student.
         Profile interProfile = new Profile("John Adams", csMajor);
