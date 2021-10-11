@@ -69,7 +69,7 @@ public class TuitionManager {
     public static int checkCmdValidity(String letters, StringTokenizer st) {
         //If not capitalized, invalid
         if (!(letters.toUpperCase().equals(letters))) {
-            System.out.println("Invalid (command isn't fully capitalized).");
+            System.out.println("Command "+ "'"+letters+"'"+ "not supported!");
             return -1;
         }
         //If not in list of good commands, invalid.
@@ -90,28 +90,43 @@ public class TuitionManager {
         //Check that of C,P,PT,PN there's 1 total token.
         if (letters.equals("C") || letters.equals("P") || letters.equals("PT") || letters.equals("PN")) {
             if (totalTokens != 1) {
-                System.out.println("Invalid (incorrect number of tokens for C, P, PT, or PN).");
+                System.out.println("Invalid: Extra number of tokens for C, P, PT, or PN.");
                 cmdIndex = -1;
             }
         }
         //Check that for remove, there's 3 total tokens.
         if (letters.equals("R")) {
             if (totalTokens != 3) {
-                System.out.println("Invalid (incorrect number of tokens for R).");
+                System.out.println("Missing data in command line.");
                 cmdIndex = -1;
             }
         }
         //Check that for S, F, AR, AN there's 4 total tokens.
         if (letters.equals("S") || letters.equals("F") || letters.equals("AR") || letters.equals("AN")) {
             if (totalTokens != 4) {
-                System.out.println("Invalid (incorrect number of tokens for S, F, AR, or AN).");
+                if(totalTokens==3){
+                    if(letters.equals("AR")||letters.equals("AN")){
+                        System.out.println("Credit hours missing.");
+                        return -1;
+                    }
+                    if(letters.equals("F")){
+                        System.out.println("Missing amount");
+                    }
+                }
+                System.out.println("Missing data in command line.");
                 cmdIndex = -1;
             }
         }
         //Check that for AI, AT, T, there's 5 total tokens.
         if (letters.equals("AI") || letters.equals("AT") || letters.equals("T")) {
             if (totalTokens != 5) {
-                System.out.println("Invalid (incorrect number of tokens for AI, AT or T).");
+                if(letters.equals("AI")||letters.equals("AT")){
+                    if(totalTokens==3){
+                        System.out.println("Credit hours missing.");
+                        return -1;
+                    }
+                }
+                System.out.println("Missing data in command line.");
                 cmdIndex = -1;
             }
         }
@@ -134,7 +149,7 @@ public class TuitionManager {
         if (!added) {
             System.out.println("Student already in the roster.");
         } else {
-            System.out.println("Added student.");
+            System.out.println("Student added.");
         }
     }
     /**
@@ -192,10 +207,10 @@ public class TuitionManager {
         int credits = Integer.parseInt(creditsString);
         if (credits < 3 || credits > 24) {
             if(credits < 3){
-                System.out.println("Credits must be minimum 3.");
+                System.out.println("Minimum credit hours is 3.");
             }
             else{
-                System.out.println("Credits must be maximum 24.");
+                System.out.println("Credit hours exceed the maximum 24.");
             }
             return;
         }
@@ -237,7 +252,7 @@ public class TuitionManager {
         }
         if (cmd.equals("AI")) {
             if (credits < 12) {
-                System.out.println("Invalid. Trying to make parttime international.");
+                System.out.println("International students must enroll at least 12 credits.");
                 return;
             }
             System.out.println("We're adding international.");
@@ -403,7 +418,7 @@ public class TuitionManager {
             if (addedAid) {
                 System.out.println("Tuition updated.");
             } else {
-                System.out.println("Already given.");
+                System.out.println("Awarded once already.");
             }
 
             return;
@@ -424,7 +439,7 @@ public class TuitionManager {
             String dateOfPaymentString = st.nextToken();
             Date dateOfPayment = new Date(dateOfPaymentString);
             if (!dateOfPayment.isValid()) {
-                System.out.println("Invalid payment date!");
+                System.out.println("Payment date invalid.");
                 return;
             }
 
@@ -441,9 +456,9 @@ public class TuitionManager {
             boolean paidDone = roster.pay(s, paymentAmount, dateOfPayment);
             //Check if payment <= tuition due
             if (paidDone) {
-                System.out.println("Added a payment.");
+                System.out.println("Payment applied.");
             } else {
-                System.out.println("Invalid, greater than tuition due.");
+                System.out.println("Invalid amount.");
             }
 
             return;
