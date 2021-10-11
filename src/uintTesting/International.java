@@ -7,6 +7,7 @@ public class International extends NonResident {
     private int creditHours;
     private double tuitionFee, financialAid, totalPaid;
     private boolean studyAbroad;
+    private boolean calculated = false;
 
     public International() {
     }
@@ -55,7 +56,7 @@ public class International extends NonResident {
 
     @Override
     public void tuitionDue() {
-        if (tuitionFee == 0) {
+        if (!calculated) {
             if (studyAbroad) {
                 if (!student.getFullTime()) {
                     tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
@@ -76,6 +77,7 @@ public class International extends NonResident {
                     }
                 }
             }
+            calculated = true;
         }
     }
 

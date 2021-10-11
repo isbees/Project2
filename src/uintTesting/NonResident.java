@@ -6,6 +6,7 @@ public class NonResident extends Student {
     private Date lastPaid;
     private int creditHours;
     private double tuitionFee, financialAid, totalPaid;
+    private boolean calculated = false;
 
     public NonResident() {
 
@@ -61,7 +62,7 @@ public class NonResident extends Student {
 
     @Override
     public void tuitionDue() {
-        if (tuitionFee == 0) {
+        if (!calculated) {
             if (!student.getFullTime()) {
                 tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
                 tuitionFee += 966 * creditHours;
@@ -72,6 +73,7 @@ public class NonResident extends Student {
                     tuitionFee += (creditHours - 16) * 966;
                 }
             }
+            calculated = true;
         }
     }
 

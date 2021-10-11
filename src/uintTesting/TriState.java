@@ -9,6 +9,7 @@ public class TriState extends NonResident {
     private int creditHours;
     private double tuitionFee, financialAid, totalPaid;
     private String state;
+    private boolean calculated = false;
 
     public TriState() {
     }
@@ -55,7 +56,7 @@ public class TriState extends NonResident {
 
     @Override
     public void tuitionDue() {
-        if (tuitionFee == 0) {
+        if (!calculated) {
             if (!student.getFullTime()) {
                 tuitionFee = (UNIVERSITY_FEE * 0.8); // 80% of the university fee
                 tuitionFee += 966 * creditHours;
@@ -71,6 +72,7 @@ public class TriState extends NonResident {
                     tuitionFee -= 5000;
                 }
             }
+            calculated = true;
         }
     }
 
