@@ -1,6 +1,7 @@
 package uintTesting;
 
 import static org.junit.Assert.*;
+
 /**
  * The DateTest class tests that the isValid() method works correctly.
  *

@@ -1,4 +1,5 @@
 package uintTesting;
+
 /**
  * The Major enum class holds the valid majors
  *

@@ -1,6 +1,7 @@
 package uintTesting;
 
 import static org.junit.Assert.*;
+
 /**
  * The RosterTest class tests that the add() and remove() methods works correctly.
  *
@@ -32,7 +33,7 @@ public class RosterTest {
 
         //Add to size 1
         Profile IProfile2 = new Profile("Mark Sams", itMajor);
-        International test2Inter = new International(IProfile2, 14,false);
+        International test2Inter = new International(IProfile2, 14, false);
         assertTrue(test1Roster.add(test2Inter));
 
         //Add to size 2
@@ -90,7 +91,7 @@ public class RosterTest {
         Roster test5Roster = new Roster();
 
         //Add international student
-        Profile interProfile = new Profile("John Adams",csMajor);
+        Profile interProfile = new Profile("John Adams", csMajor);
         International interStudent = new International(interProfile, 14, false);
         assertTrue(test5Roster.add(interStudent));
 
@@ -119,7 +120,6 @@ public class RosterTest {
      * It checks that, for all types of student:
      * 1. We can't remove a student from an empty roster
      * 2. We can remove only a student that's in the roster, in a roster size 1
-     *
      */
     @org.junit.Test
     public void remove() {
@@ -130,7 +130,7 @@ public class RosterTest {
         //Making usable international, nonresident, tristate, resident, and student.
         Profile interProfile = new Profile("John Adams", csMajor);
         International interStudent = new International(interProfile, 14, false);
-        TriState triStudent = new TriState("Mark Sams",csMajor, 14, "NY");
+        TriState triStudent = new TriState("Mark Sams", csMajor, 14, "NY");
         Profile nonResProfile = new Profile("Paul Jeff", csMajor);
         NonResident nonResStudent = new NonResident(nonResProfile, 14);
         Profile resProfile = new Profile("Andy Can", csMajor);
