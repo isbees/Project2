@@ -1,7 +1,11 @@
 package uintTesting;
 
 import static org.junit.Assert.*;
-
+/**
+ * The Roster class tests that the add() and remove() methods works correctly.
+ *
+ * @author Zachary Goldman
+ */
 public class RosterTest {
 
     //Able to add to empty, add to 1, add to 2 for tristate, resident, nonresident, and international

@@ -3,17 +3,29 @@ import java.text.NumberFormat;
 import java.util.StringTokenizer;
 import java.util.Scanner;
 
-//Comments: 159, 145, 184, gotta check also once I set study abroad that the credit amounts are okay.
-//Need a set payment, among other things. assumed we have finaid as a field.
-//Need class diagram.
-//
+/**
+ * The TuitionManager class runs from Project2's main method and is the interface for commands of roster.
+ *
+ * @author Zachary Goldman
+ */
 
 public class TuitionManager {
+    /**
+     * Main method
+     *
+     * @param args from command line, not given in our class.
+     */
     public static void main(String[] args) {
     }
 
     //Takes in the input and sends it off to check its validity,
     // then calls to do the command
+    /**
+     * Run is called by RunProject2, scans in the user's lines, checks its validity with checkCmdValidity,
+     * then sends it to doCommand unless the user entered invalid input or a Q, in which case it goes to
+     * the next line or stops the manager in the respective cases.
+     *
+     */
     public static void run() {
         Scanner sc = new Scanner(System.in);
         System.out.println("TuitionManager Started");
@@ -45,6 +57,15 @@ public class TuitionManager {
 
 
     //Checks validity of command
+    /**
+     * checkCmdValidity takes in the command and rest of the string in the tokenizer, checks that the
+     * command is uppercase, valid, and that the rest of the line is the correct number of tokens
+     *
+     * @param letters that are the command letters in a string
+     * @param st representing the stringtokenizer on the second token already having read in the cmd
+     *
+     * @return cmdIndex returns the index of command from the array of valid commands, or -1 if invalid line or command
+     */
     public static int checkCmdValidity(String letters, StringTokenizer st) {
         //If not capitalized, invalid
         if (!(letters.toUpperCase().equals(letters))) {
@@ -100,6 +121,14 @@ public class TuitionManager {
     //Adds a student to the roster by calling the addStudent method.
     //An independent method in tuition manager that deals with output of that method
     //and prints subsequent result
+    /**
+     * AddStudentWithPrinting is called by the doCommand method and if the command was to add a type of student,
+     * it'll call add() from the Roster class, then print out if it worked or not.
+     *
+     * @param roster that is the roster we're dealing with
+     * @param newStudent which is the student we're trying to add
+     *
+     */
     public static void addStudentWithPrinting(Roster roster, Student newStudent) {
         boolean added = roster.add(newStudent);
         if (!added) {
@@ -108,7 +137,13 @@ public class TuitionManager {
             System.out.println("Added student.");
         }
     }
-
+    /**
+     * isNumber returns true if the string we're testing is a number, false otherwise in the case that we have
+     * a NumberFormatException since it can't be converted as it's not a number
+     *
+     * @param test string that we're checking if it's a number or not
+     * @return boolean that's true if a number, false if not
+     */
     public static boolean isNumber(String test) {
         try {
             double testDouble = Double.parseDouble(test);
@@ -117,7 +152,13 @@ public class TuitionManager {
             return false;
         }
     }
-
+    /**
+     * isString returns false if the string we're testing is an integer, true in the case that we have
+     * a NumberFormatException since it can't be converted as it's not a number.
+     *
+     * @param test string that we're checking if it's a string or not
+     * @return boolean that's true if a string, false if not
+     */
     public static boolean isString(String test) {
         try {
             int testInt = Integer.parseInt(test);
@@ -127,7 +168,18 @@ public class TuitionManager {
         }
     }
 
-
+    /**
+     * addStudentCommand is called by the doCommand if the command isn't a command that isn't adding a student,
+     * in a separate method so as to make the method more modularized.
+     * We get the credits and extra info about the student we're adding, and then call the addStudentWithPrinting
+     * method to actually add them and print if successful.
+     *
+     * @param cmd the command we're dealing with
+     * @param name the name of the student we're adding
+     * @param major the major of the student we're adding
+     * @param st the stringtokenizer holding the rest of the information of the student
+     * @param roster the roster we're adding the student to
+     */
     public static void addStudentCommand(String cmd, String name, Major major, StringTokenizer st, Roster roster) {
         //Now can go onto adds, finding credits
 
@@ -206,6 +258,14 @@ public class TuitionManager {
 
 
     //Checks validity of line then calls the functions
+    /**
+     * doCommand takes in the command and does the respect thing. If it isn't a print statement it'll check
+     * that the name and major are valid before calling other commands. If it's an adding student command,
+     * it'll call the addStudent method above.
+     * @param cmd the command we're dealing with
+     * @param st the stringtokenizer holding the rest of the information of the student
+     * @param roster the roster we're adding the student to
+     */
     public static void doCommand(String cmd, StringTokenizer st, Roster roster) {
         if (cmd.equals("P")) {
             roster.print();
@@ -297,8 +357,6 @@ public class TuitionManager {
             } else {
                 System.out.println("Couldn't find international student.");
             }
-
-
             return;
         }
 
