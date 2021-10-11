@@ -1,30 +1,40 @@
-package uintTesting;
 
 //import org.junit.Test;
 //import static org.junit.Assert.*;
 
 public class InternationalTest {
 
-   // @Test
+    @Test
     public void tuitionDue() {
-       /* //Test that tuition is 29,737 for international students
-        Profile test1Profile = new Profile("John Adams", "CS", true);
-        International test1 = new International(test1Profile, 14);
-        assertTrue(test1.tuitionDue()==29737);*/
 
-       /* //Test that their university fee is 3268 as they're full time, and additional is 2650
-        Profile test2Profile = new Profile("Andy Markis", "IT", true);
-        International test2 = new International(test2Profile, 14);
-        assertTrue(test2.tuitionDue()==29737+3268+2650);
+        //Test 1 - If study abroad parttime
+        Major major1 = Major.valueOf("CS");
+        Profile student1 = new Profile("John Smith", major1);
+        International test1 = new International(student1,9,true);
+        assertTrue(test1.getTuitionFee() == (int)(3268*0.8));
 
-        //test that they pay non resident fees for extra credits
-        Profile test3Profile = new Profile("Sara Las", "CS", true);
-        International test3 = new International(test3Profile, 18);
-        assertTrue(test3.tuitionDue()==2*966+29737+3268+2650);
+        //Test 2 - if study abroad full time
+        Major major2 = Major.valueOf("CS");
+        Profile student2 = new Profile("John Smith", major2);
+        International test2 = new International(student2,12,true);
+        assertTrue(test2.getTuitionFee() == 3268+2650);
 
-        //test that 16 credits is no extra tuition
-        Profile test4Profile = new Profile("Landon Feld", "CS", true);
-        International test4 = new International(test3Profile, 16);
-        assertTrue(test4.tuitionDue()==29737+3268+2650); */
+        //Test 3 - if not student abroad parttime
+        Major major3 = Major.valueOf("CS");
+        Profile student3 = new Profile("John Smith", major3);
+        International test3 = new International(student3,9,false);
+        assertTrue(test3.getTuitionFee() == ((966*9)+(int)(0.8*3268)));
+
+        //Test 4 - if not study abroad full time + no extra credits
+        Major major4 = Major.valueOf("CS");
+        Profile student4 = new Profile("John Smith", major4);
+        International test4 = new International(student4,9,false);
+        assertTrue(test4.getTuitionFee() == (3268+29737+2650;
+
+        //Test 5 - if not study abroad full time + extra credits
+        Major major5 = Major.valueOf("CS");
+        Profile student5 = new Profile("John Smith", major5);
+        International test5 = new International(student4,18,false);
+        assertTrue(test5.getTuitionFee() == (3268+29737+2650+(2*966)));
     }
 }

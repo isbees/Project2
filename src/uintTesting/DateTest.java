@@ -1,40 +1,43 @@
-package uintTesting;
 //import static org.junit.Assert.*;
 
 public class DateTest {
-/*
+
     @org.junit.Test
     public void isValid() {
-        //Current date invalid
+        //Test 1: Current date invalid
         Date test1 = new Date();
         assertFalse(test1.isValid());
 
-        //Years < 2021 invalid
+        //Test 2: Years < 2021 invalid
         Date test2 = new Date("1/20/2020");
         assertFalse(test2.isValid());
 
-        //Years > 2021 invalid
+        //Test 3: Years > 2021 invalid
         Date test3 = new Date("1/20/2022");
         assertFalse(test3.isValid());
 
-        //Year = 2021, Month>Current month invalid
+        //Test 4: Year = 2021, Month>Current month invalid
         Date test4 = new Date("12/10/2021");
         assertFalse(test4.isValid());
 
-        //Year = 2021, Month=Current month, Day>Current day invalid
+        //Test 5: Year = 2021, Month=Current month, Day>Current day invalid
         Date test5 = new Date("10/28/2021");
         assertFalse(test5.isValid());
 
-        //Year = 2021, Month<Current month, Day>Current day valid
+        //Test 6: Year = 2021, Month<Current month, Day>Current day valid
         Date test6 = new Date("9/28/2021");
         assertTrue(test6.isValid());
 
-        //Year = 2021, Month=Current month, Day<Current day valid
+        //Test 7: Year = 2021, Month=Current month, Day<Current day valid
         Date test7 = new Date("10/08/2021");
         assertTrue(test7.isValid());
 
-        //Year = 2021, Month=Feb, Day=28, testing that 2021 is not leap year
-        Date test8 = new Date("2/28/2021");
-        assertFalse(test7.isValid());
-    } */
+        //Test 8: Year = 2021, Month=Feb, Day=29, testing that 2021 is not leap year
+        Date test8 = new Date("2/29/2021");
+        assertFalse(test8.isValid());
+
+        //Test 9: Year = 2021, Month = valid month like January, Day > 31 invalid
+        Date test9 = new Date("1/32/2021");
+        assertFalse(test9.isValid());
+    }
 }
