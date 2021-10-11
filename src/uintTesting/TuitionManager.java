@@ -374,7 +374,7 @@ public class TuitionManager {
 
             Profile intProfile = new Profile(name, majorM);
             International newStudent = new International(intProfile, 0, false);
-            boolean updated = false;// Roster.setStudyAbroad(newStudent, studyAbroad);
+            boolean updated = roster.setStudyAbroad(newStudent, studyAbroad);
             if (updated) {
                 System.out.println("Tuition updated.");
             } else {

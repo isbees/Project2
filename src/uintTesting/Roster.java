@@ -146,9 +146,9 @@ public class Roster {
      */
     public boolean setStudyAbroad(Student student, boolean abroadState) {
         int i = find(student);
-        if (i == -1)
+        if (i == -1) {
             return false;
-
+        }
         if (roster[i] instanceof International) { // should return true if the student has more than 12 credits
             return ((International) roster[i]).setStudyAbroad(abroadState);
         }
@@ -193,6 +193,9 @@ public class Roster {
         Student[] sort = new Student[size];
 
         for (int i = 0; i < total; i++) { // just sets sort = to roster
+            if(null == roster[i]){
+                break;
+            }
             sort[i] = roster[i];
         }
 
@@ -202,7 +205,7 @@ public class Roster {
 
             sorted = true;
             for (int i = 0; i < total - 1; i++) {
-                if(null == roster[i]){
+                if(null==sort[i+1]){
                     break;
                 }
                 if (sort[i].toString().compareTo(sort[i + 1].toString()) > 0) {
@@ -214,7 +217,10 @@ public class Roster {
             }
         }
 
-        for (int i = size - 1; i >= 0; i--) {                  // prints the roster
+        for (int i = 0; i < size; i++) {                  // prints the roster
+            if(null == sort[i]){
+                continue;
+            }
             System.out.println(sort[i].toString());
         }
         System.out.println("* end of roster **");
@@ -261,6 +267,9 @@ public class Roster {
         }
 
         for (int i = size - 1; i >= 0; i--) {                  // prints the roster
+           if(null==sort[i]){
+               continue;
+           }
             System.out.println(sort[i].toString());
         }
         System.out.println("* end of roster **");

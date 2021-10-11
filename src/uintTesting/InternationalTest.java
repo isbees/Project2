@@ -3,11 +3,9 @@ package uintTesting;
 import static org.junit.Assert.*;
 
 public class InternationalTest {
-    public static void main(String[] args){
-        tuitionDue();
-    }
+
     @org.junit.Test
-    public static void tuitionDue() {
+    public  void tuitionDue() {
         //Test 1 - If study abroad parttime
         Major major1 = Major.valueOf("CS");
         Profile student1 = new Profile("John Smith", major1,false);

@@ -117,7 +117,6 @@ public class International extends NonResident {
             tuitionDue();
             return true;
         }
-
         return false;
     }
 
