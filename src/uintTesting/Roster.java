@@ -199,8 +199,12 @@ public class Roster {
         boolean sorted = false;
 
         while (!sorted) {
+
             sorted = true;
             for (int i = 0; i < total - 1; i++) {
+                if(null == roster[i]){
+                    break;
+                }
                 if (sort[i].toString().compareTo(sort[i + 1].toString()) > 0) {
                     Student temp = sort[i];
                     sort[i] = sort[i + 1];
@@ -230,6 +234,9 @@ public class Roster {
         int sortIndex = 0;
 
         for (int i = 0; i < size; i++) { // just sets sort = to roster
+            if(null == roster[i]){
+                break;
+            }
             if (roster[i].hadPaid()) {
                 sort[sortIndex] = roster[i];
                 sortIndex++;
@@ -241,6 +248,9 @@ public class Roster {
         while (!sorted) {
             sorted = true;
             for (int i = 0; i < size - 1; i++) {
+                if(null==sort[i+1]){
+                    break;
+                }
                 if (sort[i].getLastPaid().compareTo(sort[i + 1].getLastPaid()) > 0) {
                     Student temp = sort[i];
                     sort[i] = sort[i + 1];
