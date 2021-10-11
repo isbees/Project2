@@ -1,11 +1,18 @@
 package uintTesting;
 
 import static org.junit.Assert.*;
-
+/**
+ * The InternationalTest class tests that the tuitionDue method in International by calling it then accessing
+ * it through getTuitionFee() and checking that the amounts line up to where it should.
+ *
+ * @author Zachary Goldman
+ */
 public class InternationalTest {
-
+    /**
+     * The tuitionDue() method tests the tuitionDue() method of the International class
+     */
     @org.junit.Test
-    public  void tuitionDue() {
+    public void tuitionDue() {
         //Test 1 - If study abroad parttime
         Major major1 = Major.valueOf("CS");
         Profile student1 = new Profile("John Smith", major1,false);

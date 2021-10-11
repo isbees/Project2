@@ -1,5 +1,4 @@
 package uintTesting;
-import java.text.NumberFormat;
 import java.util.StringTokenizer;
 import java.util.Scanner;
 /**
@@ -63,7 +62,7 @@ public class TuitionManager {
      * command is uppercase, valid, and that the rest of the line is the correct number of tokens
      *
      * @param letters that are the command letters in a string
-     * @param st representing the stringtokenizer on the second token already having read in the cmd
+     * @param st representing the StringTokenizer on the second token already having read in the cmd
      *
      * @return cmdIndex returns the index of command from the array of valid commands, or -1 if invalid line or command
      */
@@ -203,7 +202,7 @@ public class TuitionManager {
      * @param cmd the command we're dealing with
      * @param name the name of the student we're adding
      * @param major the major of the student we're adding
-     * @param st the stringtokenizer holding the rest of the information of the student
+     * @param st the StringTokenizer holding the rest of the information of the student
      * @param roster the roster we're adding the student to
      */
     public static void addStudentCommand(String cmd, String name, Major major, StringTokenizer st, Roster roster) {
@@ -234,18 +233,16 @@ public class TuitionManager {
                 NonResident newStudent = new NonResident(name, major, credits);
                 addStudentWithPrinting(roster, newStudent);
                 return;
-            } else if (cmd.equals("AR")) {
-
-                int financialAid = 0;
-
+            }
+            //Command = AR
+            else {
                 Resident newStudent = new Resident(name, major, credits);
                 addStudentWithPrinting(roster, newStudent);
-
             }
         }
 
         //Last comes AI, AT with 5 tokens. For both, we need to use the next token.
-        // Now just need state or studyabroad
+        // Now just need state or studyAbroad
         if (cmd.equals("AT")) {
 
             String state = st.nextToken();
@@ -273,20 +270,16 @@ public class TuitionManager {
                 return;
             }
             boolean studyAbroad = Boolean.parseBoolean(studyAbroadTest);
-            boolean fullTime = credits >= 12;
+            boolean fullTime = true;
 
             Profile intStudentProfile = new Profile(name, major, fullTime);
             International newStudent = new International(intStudentProfile, credits, studyAbroad);
             addStudentWithPrinting(roster, newStudent);
-
-            return;
         }
     }
 
-
-    //Checks validity of line then calls the functions
     /**
-     * doCommand takes in the command and does the respect thing. If it isn't a print statement it'll check
+     * doCommand takes in the command and does the respective thing. If it isn't a print statement it'll check
      * that the name and major are valid before calling other commands. If it's an adding student command,
      * it'll call the addStudent method above.
      * @param cmd the command we're dealing with

@@ -2,13 +2,20 @@ package uintTesting;
 
 import static org.junit.Assert.*;
 /**
- * The Roster class tests that the add() and remove() methods works correctly.
+ * The RosterTest class tests that the add() and remove() methods works correctly.
  *
  * @author Zachary Goldman
  */
 public class RosterTest {
 
-    //Able to add to empty, add to 1, add to 2 for tristate, resident, nonresident, and international
+    /**
+     * The add() method tests the add() method of the Roster class
+     * It checks that we can, for all types of student:
+     * 1. Add to empty
+     * 2. Add to a roster of size 1
+     * 3. Add to a roster of size 2
+     * Then finally, that we can mix types of students in a roster, and can't add a student twice.
+     */
     @org.junit.Test
     public void add() {
         Major itMajor = Major.valueOf("IT");
@@ -23,12 +30,12 @@ public class RosterTest {
         International test1Inter = new International(IProfile1, 14, false);
         assertTrue(test1Roster.add(test1Inter));
 
-        //Add to 1
+        //Add to size 1
         Profile IProfile2 = new Profile("Mark Sams", itMajor);
         International test2Inter = new International(IProfile2, 14,false);
         assertTrue(test1Roster.add(test2Inter));
 
-        //Add to 2
+        //Add to size 2
         Profile IProfile3 = new Profile("Andy Can", eeMajor);
         International test3Inter = new International(IProfile3, 16, false);
         assertTrue(test1Roster.add(test3Inter));
@@ -39,10 +46,10 @@ public class RosterTest {
         //Add to empty
         TriState test1Tri = new TriState("John Adams", csMajor, 14, "NY");
         assertTrue(test2Roster.add(test1Tri));
-        //Add to 1
+        //Add to size 1
         TriState test2Tri = new TriState("Mark Sams", itMajor, 14, "CT");
         assertTrue(test2Roster.add(test2Tri));
-        //Add to 2
+        //Add to size 2
         TriState test3Tri = new TriState("Andy Can", eeMajor, 14, "NY");
         assertTrue(test2Roster.add(test3Tri));
 
@@ -50,15 +57,15 @@ public class RosterTest {
         //Test 3: Testing adding nonresident students to roster size 0,1,2
         Roster test3Roster = new Roster();
 
-        //Add to emptty
+        //Add to empty
         Profile NRProfile1 = new Profile("John Adams", csMajor);
         NonResident test1NR = new NonResident(NRProfile1, 14);
         assertTrue(test3Roster.add(test1NR));
-        //Add to 1
+        //Add to size 1
         Profile NRProfile2 = new Profile("Mark Sams", itMajor);
         NonResident test2NR = new NonResident(NRProfile2, 14);
         assertTrue(test3Roster.add(test2NR));
-        //Add to 2
+        //Add to size 2
         Profile NRProfile3 = new Profile("Andy Can", eeMajor);
         NonResident test3NR = new NonResident(NRProfile3, 14);
         assertTrue(test3Roster.add(test3NR));
@@ -70,11 +77,11 @@ public class RosterTest {
         Profile RProfile1 = new Profile("John Adams", csMajor);
         Resident test1R = new Resident(RProfile1, 14);
         assertTrue(test4Roster.add(test1R));
-        //Add to 1
+        //Add to size 1
         Profile RProfile2 = new Profile("Mark Sams", itMajor);
         Resident test2R = new Resident(RProfile2, 14);
         assertTrue(test4Roster.add(test2R));
-        //Add to 2
+        //Add to size 2
         Profile RProfile3 = new Profile("Andy Can", eeMajor);
         Resident test3R = new Resident(RProfile3, 14);
         assertTrue(test4Roster.add(test3R));
@@ -107,7 +114,13 @@ public class RosterTest {
         assertFalse(test6.add(resStudent));
     }
 
-    //Able remove from 2 or 1, but not from empty for tristate, resident, nonresident, and international, or student isn't in it
+    /**
+     * The remove() method tests the remove() method of the Roster class
+     * It checks that, for all types of student:
+     * 1. We can't remove a student from an empty roster
+     * 2. We can remove only a student that's in the roster, in a roster size 1
+     *
+     */
     @org.junit.Test
     public void remove() {
         Major itMajor = Major.valueOf("IT");

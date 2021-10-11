@@ -7,7 +7,9 @@ import static org.junit.Assert.*;
  * @author Zachary Goldman
  */
 public class DateTest {
-
+    /**
+     * The isValid() method tests the isValid() method of the Date class
+     */
     @org.junit.Test
     public void isValid() {
         //Test 1: Current date invalid
