@@ -1,5 +1,10 @@
 package uintTesting;
 
+/**
+ * The Student class holds the information of a student and declares some methods that will be used in subclasses
+ *
+ * @author Isaac Brukhman
+ */
 public class Student {
     //Should keep track of the amount they owe and have paid as well as the last date -> i.e. the last T pay command's date
 
@@ -54,6 +59,12 @@ public class Student {
         return student.toString() + ":" + creditHours;  // will add more to this to string later. + ":" +
     }
 
+    /**
+     * tells if the student is equal to another
+     *
+     * @param obj the student we want to compare
+     * @return true if they are equal
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Student) {
@@ -64,11 +75,20 @@ public class Student {
         return false;
     }
 
+    /**
+     * gets the string representation of the profile
+     *
+     * @return String the profile as a string
+     */
     public String getProfile() {
-        //System.out.println("name " + student.getName());
         return student.toString();
     }
 
+    /**
+     * gets the Profile of this student
+     *
+     * @return Profile of the student
+     */
     public Profile getProfileP() {
         return student;
     }
@@ -83,6 +103,7 @@ public class Student {
      * returns false since the subclasses determine if a payment is possible
      *
      * @param payment the amount to be paid
+     * @param datePaid the date that a payment was attempted
      * @return false
      */
     public boolean pay(double payment, Date datePaid) {

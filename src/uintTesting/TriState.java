@@ -1,7 +1,12 @@
 package uintTesting;
 
-import java.util.Locale;
+import java.text.DecimalFormat;
 
+/**
+ * The TriState is a subclass of NonResident that can have a discount based on the state the student live in
+ *
+ * @author Isaac Brukhman
+ */
 public class TriState extends NonResident {
 
     private Profile student;
@@ -11,9 +16,20 @@ public class TriState extends NonResident {
     private String state;
     private boolean calculated = false;
 
+    /**
+     * empty constructor
+     */
     public TriState() {
     }
 
+    /**
+     * constructor calculates the full time status amd makes a profile
+     *
+     * @param name        of the student
+     * @param major       of the student
+     * @param creditHours that will be taken
+     * @param state       that the student lives in
+     */
     public TriState(String name, Major major, int creditHours, String state) {
         boolean fullTime = (creditHours - 12) >= 0;
 
@@ -27,16 +43,29 @@ public class TriState extends NonResident {
     }
 
     /**
-     * will return a string with the variables and ends in non resident(tri-state):<state>
+     * will return a string with the variables and ends in non resident(tri-state):state
      *
      * @return String the formatted output
      */
     @Override
     public String toString() {
-        return String.format("%s:%d credit hours:tuition due:%1.2f:total payment:%1.2f:last payment date: %s:non-resident(tri-state):%s"
-                , student.toString(), creditHours, tuitionFee, totalPaid, lastPaid.getDate(), state);
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        decimalFormat.setGroupingUsed(true);
+        decimalFormat.setGroupingSize(3);
+
+        String tF = decimalFormat.format(tuitionFee);
+        String tP = decimalFormat.format(totalPaid);
+
+        return String.format("%s:%d credit hours:tuition due:%s:total payment:%s:last payment date: %s:non-resident(tri-state):%s"
+                , student.toString(), creditHours, tF, tP, lastPaid.getDate(), state);
     }
 
+    /**
+     * tells if the student is equal to another
+     *
+     * @param obj the student we want to compare
+     * @return true if they are equal
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof TriState) {
@@ -46,14 +75,29 @@ public class TriState extends NonResident {
         return false;
     }
 
+    /**
+     * gets the string representation of the profile
+     *
+     * @return String the profile as a string
+     */
+    @Override
     public String getProfile() {
         return student.toString();
     }
 
+    /**
+     * gets the Profile of this student
+     *
+     * @return Profile of the student
+     */
+    @Override
     public Profile getProfileP() {
         return student;
     }
 
+    /**
+     * will calculate the amount of tuition this student will need to pay
+     */
     @Override
     public void tuitionDue() {
         if (!calculated) {

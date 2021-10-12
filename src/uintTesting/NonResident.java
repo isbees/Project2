@@ -1,5 +1,12 @@
 package uintTesting;
 
+import java.text.DecimalFormat;
+
+/**
+ * The NonResdident is a subclass of Student that cannot have financial aid
+ *
+ * @author Isaac Brukhman
+ */
 public class NonResident extends Student {
 
     private Profile student;
@@ -8,10 +15,18 @@ public class NonResident extends Student {
     private double tuitionFee, financialAid, totalPaid;
     private boolean calculated = false;
 
+    /**
+     * empty constructor
+     */
     public NonResident() {
-
     }
 
+    /**
+     * constructor with premade profile
+     *
+     * @param student     the profile of the student
+     * @param creditHours that will be taken
+     */
     public NonResident(Profile student, int creditHours) {
         lastPaid = new Date("00/00/00");
         this.student = student;
@@ -21,6 +36,13 @@ public class NonResident extends Student {
         totalPaid = 0;
     }
 
+    /**
+     * constructor that makes the profile and calculates the full time status
+     *
+     * @param name        of the student
+     * @param major       of the student
+     * @param creditHours that will be taken
+     */
     public NonResident(String name, Major major, int creditHours) {
         boolean fullTime = (creditHours - 12) >= 0;
 
@@ -39,10 +61,23 @@ public class NonResident extends Student {
      */
     @Override
     public String toString() {
-        return String.format("%s:%d credit hours:tuition due:%1.2f:total payment:%1.2f:last payment date: %s:non-resident"
-                , student.toString(), creditHours, tuitionFee, totalPaid, lastPaid.getDate());
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        decimalFormat.setGroupingUsed(true);
+        decimalFormat.setGroupingSize(3);
+
+        String tF = decimalFormat.format(tuitionFee);
+        String tP = decimalFormat.format(totalPaid);
+
+        return String.format("%s:%d credit hours:tuition due:%s:total payment:%s:last payment date: %s:non-resident"
+                , student.toString(), creditHours, tF, tP, lastPaid.getDate());
     }
 
+    /**
+     * tells if the student is equal to another
+     *
+     * @param obj the student we want to compare
+     * @return true if they are equal
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof NonResident) {
@@ -52,14 +87,29 @@ public class NonResident extends Student {
         return false;
     }
 
+    /**
+     * gets the string representation of the profile
+     *
+     * @return String the profile as a string
+     */
+    @Override
     public String getProfile() {
         return student.toString();
     }
 
+    /**
+     * gets the Profile of this student
+     *
+     * @return Profile of the student
+     */
+    @Override
     public Profile getProfileP() {
         return student;
     }
 
+    /**
+     * will calculate the amount of tuition this student will need to pay
+     */
     @Override
     public void tuitionDue() {
         if (!calculated) {
@@ -112,6 +162,7 @@ public class NonResident extends Student {
      *
      * @return Date the date that the student last paid
      */
+    @Override
     public Date getLastPaid() {
         return lastPaid;
     }

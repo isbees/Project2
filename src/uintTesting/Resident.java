@@ -1,5 +1,12 @@
 package uintTesting;
 
+import java.text.DecimalFormat;
+
+/**
+ * The Resident class is a subclass of Student that has the ability to have financial aid
+ *
+ * @author Isaac Brukhman
+ */
 public class Resident extends Student {
 
     private Profile student;
@@ -8,9 +15,18 @@ public class Resident extends Student {
     private double tuitionFee, financialAid, totalPaid;
     private boolean calculated = false;
 
+    /**
+     * empty constructor
+     */
     public Resident() {
     }
 
+    /**
+     * constructor with a premade profile
+     *
+     * @param student     profile of the student
+     * @param creditHours that will be taken
+     */
     public Resident(Profile student, int creditHours) {
         lastPaid = new Date("00/00/00");
         this.student = student;
@@ -20,6 +36,13 @@ public class Resident extends Student {
         totalPaid = 0;
     }
 
+    /**
+     * constructor that calculated the full time status and then makes a profile
+     *
+     * @param name        of the student
+     * @param major       of the student
+     * @param creditHours that will be taken
+     */
     public Resident(String name, Major major, int creditHours) {
         boolean fullTime = (creditHours - 12) >= 0;
 
@@ -38,16 +61,29 @@ public class Resident extends Student {
      */
     @Override
     public String toString() {
-        if(financialAid>0) {
-            return String.format("%s:%d credit hours:tuition due:%1.2f:total payment:%1.2f:last payment date: %s:resident: financial aid $%1.2f"
-                    , student.toString(), creditHours, tuitionFee, totalPaid, lastPaid.getDate(), financialAid);  // lastPaid
-        }
-        else{
-            return String.format("%s:%d credit hours:tuition due:%1.2f:total payment:%1.2f:last payment date: %s:resident"
-                    , student.toString(), creditHours, tuitionFee, totalPaid, lastPaid.getDate());  // lastPaid
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        decimalFormat.setGroupingUsed(true);
+        decimalFormat.setGroupingSize(3);
+
+        String tF = decimalFormat.format(tuitionFee);
+        String tP = decimalFormat.format(totalPaid);
+        String fA = decimalFormat.format(financialAid);
+
+        if (financialAid > 0) {
+            return String.format("%s:%d credit hours:tuition due:%s:total payment:%s:last payment date: %s:resident: financial aid $%s"
+                    , student.toString(), creditHours, tF, tP, lastPaid.getDate(), fA);  // lastPaid
+        } else {
+            return String.format("%s:%d credit hours:tuition due:%s:total payment:%s:last payment date: %s:resident"
+                    , student.toString(), creditHours, tF, tP, lastPaid.getDate());  // lastPaid
         }
     }
 
+    /**
+     * tells if the student is equal to another
+     *
+     * @param obj the student we want to compare
+     * @return true if they are equal
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Resident) {
@@ -57,14 +93,29 @@ public class Resident extends Student {
         return false;
     }
 
+    /**
+     * gets the string representation of the profile
+     *
+     * @return String the profile as a string
+     */
+    @Override
     public String getProfile() {
         return student.toString();
     }
 
+    /**
+     * gets the Profile of this student
+     *
+     * @return Profile of the student
+     */
+    @Override
     public Profile getProfileP() {
         return student;
     }
 
+    /**
+     * will calculate the amount of tuition this student will need to pay
+     */
     @Override
     public void tuitionDue() {
         if (!calculated) {
@@ -78,7 +129,7 @@ public class Resident extends Student {
                     tuitionFee += (creditHours - 16) * 404;
                 }
             }
-            tuitionFee-=financialAid;
+            tuitionFee -= financialAid;
             calculated = true;
         }
     }
@@ -116,11 +167,16 @@ public class Resident extends Student {
         }
 
         this.financialAid = financialAid;
-        calculated=false;
+        calculated = false;
         tuitionDue();
         return true;
     }
 
+    /**
+     * gets the credit of the student
+     *
+     * @return int the credit
+     */
     @Override
     public int getCredit() {
         return creditHours;
@@ -131,6 +187,7 @@ public class Resident extends Student {
      *
      * @return Date the date that the student last paid
      */
+    @Override
     public Date getLastPaid() {
         return lastPaid;
     }

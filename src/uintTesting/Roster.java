@@ -1,5 +1,10 @@
 package uintTesting;
 
+/**
+ * The Roster class will hold a list of students and let the user manipulate the list with methods
+ *
+ * @author Isaac Brukhman
+ */
 public class Roster {
 
     private Student[] roster;
@@ -8,13 +13,13 @@ public class Roster {
     /**
      * Find will linearly search through the roster and return the index if found. If not -1 is returned.
      *
-     * @param student takes in an Student to check if it's in our collections
+     * @param student takes in an Student to check if it's in our roster
      * @return index that's index of Student if found, -1 otherwise
      */
     private int find(Student student) {
         int index;
         for (index = 0; index < size; index++) {
-            if(null == roster[index]){
+            if (null == roster[index]) {
                 break;
             }
             if (student.getProfileP().equals(roster[index].getProfileP())) {
@@ -110,13 +115,17 @@ public class Roster {
         return true;
     }
 
-
+    /**
+     * gets the student that we are looking for
+     *
+     * @param newStudent a student with the same Major and name
+     * @return Student the student in the roster
+     */
     public Student findStudent(Student newStudent) {
         int indexOfStudent = find(newStudent);
-        if(indexOfStudent==-1){
+        if (indexOfStudent == -1) {
             return null;
-        }
-        else {
+        } else {
             return roster[indexOfStudent];
         }
     }
@@ -126,18 +135,33 @@ public class Roster {
      */
     public void calculateTuition() {
         for (int i = 0; i < size; i++) {
-            if (null==roster[i]) {
+            if (null == roster[i]) {
                 return;
             }
             roster[i].tuitionDue();
         }
     }
 
+    /**
+     * Tries to pay the students tuition and give a timestamp.
+     *
+     * @param student that we want to find
+     * @param amount  that the student will pay
+     * @param date    the date that payment was attempted
+     * @return true if th payment was less than 10000
+     */
     public boolean pay(Student student, double amount, Date date) {
         int i = find(student);
         return roster[i].pay(amount, date);
     }
 
+    /**
+     * sets the financial aid of the student to the amount
+     *
+     * @param student that need financial aid
+     * @param amount  that will be aided
+     * @return false if the student isn't eligible or the amount is wrong
+     */
     public boolean setFinancialAid(Student student, double amount) {
         int i = find(student);
         return roster[i].setFinancialAid(amount);
@@ -148,6 +172,7 @@ public class Roster {
      * Set the abroad status to the inputed value if the student is international
      *
      * @param student the international student we want to flip the
+     * @param abroadState if the student is studying abroad
      * @return false if the student was not found or if the credits were more than 12
      */
     public boolean setStudyAbroad(Student student, boolean abroadState) {
@@ -172,7 +197,7 @@ public class Roster {
         }
 
         System.out.println("* list of students in the roster **");
-        //Print the stuff here or coll empty
+
         for (int i = 0; i < size; i++) {
 
             if (null == roster[i]) {
@@ -199,7 +224,7 @@ public class Roster {
         Student[] sort = new Student[size];
 
         for (int i = 0; i < total; i++) { // just sets sort = to roster
-            if(null == roster[i]){
+            if (null == roster[i]) {
                 break;
             }
             sort[i] = roster[i];
@@ -211,7 +236,7 @@ public class Roster {
 
             sorted = true;
             for (int i = 0; i < total - 1; i++) {
-                if(null==sort[i+1]){
+                if (null == sort[i + 1]) {
                     break;
                 }
                 if (sort[i].toString().compareTo(sort[i + 1].toString()) > 0) {
@@ -224,7 +249,7 @@ public class Roster {
         }
 
         for (int i = 0; i < size; i++) {                  // prints the roster
-            if(null == sort[i]){
+            if (null == sort[i]) {
                 continue;
             }
             System.out.println(sort[i].toString());
@@ -246,7 +271,7 @@ public class Roster {
         int sortIndex = 0;
 
         for (int i = 0; i < size; i++) { // just sets sort = to roster
-            if(null == roster[i]){
+            if (null == roster[i]) {
                 break;
             }
             if (roster[i].hadPaid()) {
@@ -260,7 +285,7 @@ public class Roster {
         while (!sorted) {
             sorted = true;
             for (int i = 0; i < size - 1; i++) {
-                if(null==sort[i+1]){
+                if (null == sort[i + 1]) {
                     break;
                 }
                 if (sort[i].getLastPaid().compareTo(sort[i + 1].getLastPaid()) > 0) {
@@ -273,9 +298,9 @@ public class Roster {
         }
 
         for (int i = size - 1; i >= 0; i--) {                  // prints the roster
-           if(null==sort[i]){
-               continue;
-           }
+            if (null == sort[i]) {
+                continue;
+            }
             System.out.println(sort[i].toString());
         }
         System.out.println("* end of roster **");

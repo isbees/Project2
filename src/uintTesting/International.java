@@ -1,5 +1,12 @@
 package uintTesting;
 
+import java.text.DecimalFormat;
+
+/**
+ * The International is a subclass of NonResident that can have a student study abroad
+ *
+ * @author Isaac Brukhman
+ */
 public class International extends NonResident {
 
     private Profile student;
@@ -9,9 +16,19 @@ public class International extends NonResident {
     private boolean studyAbroad;
     private boolean calculated = false;
 
+    /**
+     * empty constructor
+     */
     public International() {
     }
 
+    /**
+     * constructor with premade profile
+     *
+     * @param student     profile of the student
+     * @param creditHours that will be taken
+     * @param studyAbroad study abroad status
+     */
     public International(Profile student, int creditHours, boolean studyAbroad) {
         lastPaid = new Date("00/00/00");
         this.student = student;
@@ -23,20 +40,33 @@ public class International extends NonResident {
     }
 
     /**
-     * will return a string with the variables and ends in non resident(tri-state):<state>
+     * will return a string with the variables and ends in non resident(tri-state):state
      *
      * @return String the formatted output
      */
     @Override
     public String toString() {
-        String s = String.format("%s:%d credit hours:tuition due:%1.2f:total payment:%1.2f:last payment date: %s:non-resident:international:"
-                , student.toString(), creditHours, tuitionFee, totalPaid, lastPaid.getDate());
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        decimalFormat.setGroupingUsed(true);
+        decimalFormat.setGroupingSize(3);
+
+        String tF = decimalFormat.format(tuitionFee);
+        String tP = decimalFormat.format(totalPaid);
+
+        String s = String.format("%s:%d credit hours:tuition due:%s:total payment:%s:last payment date: %s:non-resident:international:"
+                , student.toString(), creditHours, tF, tP, lastPaid.getDate());
         if (studyAbroad) {
             s += "study abroad";
         }
         return s;
     }
 
+    /**
+     * tells if the student is equal to another
+     *
+     * @param obj the student we want to compare
+     * @return true if they are equal
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof International) {
@@ -46,14 +76,29 @@ public class International extends NonResident {
         return false;
     }
 
+    /**
+     * gets the string representation of the profile
+     *
+     * @return String the profile as a string
+     */
+    @Override
     public String getProfile() {
         return student.toString();
     }
 
+    /**
+     * gets the Profile of this student
+     *
+     * @return Profile of the student
+     */
+    @Override
     public Profile getProfileP() {
         return student;
     }
 
+    /**
+     * will calculate the amount of tuition this student will need to pay
+     */
     @Override
     public void tuitionDue() {
         if (!calculated) {
@@ -111,26 +156,36 @@ public class International extends NonResident {
         return super.setFinancialAid(financialAid);
     }
 
+    /**
+     * sets the study abroad status of the student. If changed, the tuition is re evaluated.
+     *
+     * @param abroadState the boolean value that the status will be set to
+     * @return true if the state was changed
+     */
     public boolean setStudyAbroad(boolean abroadState) {
-        if(studyAbroad==abroadState){
+        if (studyAbroad == abroadState) {
             return false;
         }
-        if(studyAbroad==false){
-            if(creditHours>12){
-                creditHours=12;
+        if (studyAbroad == false) {
+            if (creditHours > 12) {
+                creditHours = 12;
             }
-            studyAbroad=true;
-            totalPaid=0;
+            studyAbroad = true;
+            totalPaid = 0;
             lastPaid = new Date("00/00/00");
+        } else {
+            studyAbroad = false;
         }
-        else{
-            studyAbroad=false;
-        }
-        calculated=false;
+        calculated = false;
         tuitionDue();
         return true;
     }
 
+    /**
+     * gets the tuition fee that was calculated
+     *
+     * @return double the tuition fee
+     */
     public double getTuitionFee() {
         return tuitionFee;
     }
@@ -140,6 +195,7 @@ public class International extends NonResident {
      *
      * @return Date the date that the student last paid
      */
+    @Override
     public Date getLastPaid() {
         return lastPaid;
     }
